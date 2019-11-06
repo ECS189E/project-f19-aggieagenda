@@ -8,5 +8,7 @@ First week: Design the structure and UI. Create the login, verification, and hom
 
 See the link: https://github.com/ECS189E/project-f19-helloworld/projects/1?add_cards_query=is%3Aopen
 
+Or use Trello: https://trello.com/b/XqyKj05g/final-project
+
 ![My image](https://github.com/ECS189E/project-f19-helloworld/blob/master/mmexport1573026704192.jpg)
 ![My image](https://github.com/ECS189E/project-f19-helloworld/blob/master/mmexport1573026706407.jpg)

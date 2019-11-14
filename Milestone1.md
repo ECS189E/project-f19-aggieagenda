@@ -12,7 +12,7 @@ See the mockup from the link: https://github.com/ECS189E/project-f19-helloworld/
 
 ### List of third party libraries: 
 
-LocalAuthentication
+LocalAuthentication (Possibly consider adding FaceID and Touch ID)
 
 LAcontext
 
@@ -36,11 +36,23 @@ WriteNoteViewController: Allow users to either write a diary for the day or sent
 
 Planning to use Segue to Navigate between different View Controllers.
 
-### List of week long takes and timeline:
+### List of week long tasks and timeline:
 
-Planning to finish each different ViewControllers by weekly basis
+Nov.15: Finalize the UI (As a group).
+
+Nov.18: Login View Controller (Youyuan), SignIn View Controller (Zhiwei), Sign Up View Controller (Yubing).
+
+Nov.20: Calendar View Controller (As a group).
+
+Nov.25: AddEvent View Controller (Youyuan, Zhiwei) WriteNoteViewController (Yubing).
 
 
 ### Test plan:
 
-Planing to ask friends in class to test program after finish each viewController since each part of the viewController has different functionality. By given them a satisfaction scale to try to meet the needs of the users for UI design and functionality. For example, the question could be how you will rate the design of the login from 0 - 5.
+Planing to ask friends in class to test program after finish each viewController since each part of the viewController has different functionality. By given them a satisfaction scale to try to meet the needs of the users for UI design and functionality. 
+
+Potential questions for users: 
+
+1. How easy was it to signup and sign in?
+2. How easy was it to add a new event?
+3. Does the screen look clear enough to display important information?

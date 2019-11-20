@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ecs189final.xcodeproj">
+      location = "self:MyCalendar.xcodeproj">
    </FileRef>
 </Workspace>

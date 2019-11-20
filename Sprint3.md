@@ -14,3 +14,5 @@ optimize our UI to let it be more user friendly
 Try think about what extra features and advantages we can grab from using the Canvas API.
 
 link to Trello board: https://trello.com/b/XqyKj05g/final-project
+
+Commit project folder: https://github.com/ECS189E/project-f19-helloworld/tree/master/ecs189final

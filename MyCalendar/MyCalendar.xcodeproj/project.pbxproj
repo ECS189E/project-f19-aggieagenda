@@ -15,6 +15,8 @@
 		0F880A1323866C34001D89DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F880A1123866C34001D89DC /* LaunchScreen.storyboard */; };
 		0F880A1B23866CDA001D89DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F880A1A23866CDA001D89DC /* GoogleService-Info.plist */; };
 		0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F880A1C23867B62001D89DC /* CalendarViewController.swift */; };
+		0FD2C4692392675F00FD0E58 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C4682392675E00FD0E58 /* Api.swift */; };
+		0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46A239273EA00FD0E58 /* classes.swift */; };
 		701D518BE87E9A1281B24B42 /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1B06BB35FA5C622527C144 /* Pods_MyCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		0F880A1423866C34001D89DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F880A1A23866CDA001D89DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F880A1C23867B62001D89DC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		0FD2C4682392675E00FD0E58 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		0FD2C46A239273EA00FD0E58 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
 		5781D82ADC1276CFA5223100 /* Pods-MyCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.debug.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		8F1B06BB35FA5C622527C144 /* Pods_MyCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCFB1AF010C5FEB676C39CA /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,11 +75,13 @@
 				0F880A0823866C30001D89DC /* SceneDelegate.swift */,
 				0F880A0A23866C30001D89DC /* LoginViewController.swift */,
 				0F880A0C23866C30001D89DC /* Main.storyboard */,
+				0FD2C4682392675E00FD0E58 /* Api.swift */,
 				0F880A0F23866C34001D89DC /* Assets.xcassets */,
 				0F880A1123866C34001D89DC /* LaunchScreen.storyboard */,
 				0F880A1A23866CDA001D89DC /* GoogleService-Info.plist */,
 				0F880A1423866C34001D89DC /* Info.plist */,
 				0F880A1C23867B62001D89DC /* CalendarViewController.swift */,
+				0FD2C46A239273EA00FD0E58 /* classes.swift */,
 			);
 			path = MyCalendar;
 			sourceTree = "<group>";
@@ -213,9 +219,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */,
 				0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */,
 				0F880A0B23866C30001D89DC /* LoginViewController.swift in Sources */,
 				0F880A0723866C30001D89DC /* AppDelegate.swift in Sources */,
+				0FD2C4692392675F00FD0E58 /* Api.swift in Sources */,
 				0F880A0923866C30001D89DC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,9 +11,11 @@ import UIKit
 class CalendarViewController: UIViewController {
     
     var email:String = ""
+    var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Api.ApiCall(user: user)
         // Do any additional setup after loading the view.
     }
     

@@ -95,6 +95,11 @@
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
+		<key>OAuthSwift.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>Pods-MyCalendar.xcscheme</key>
 		<dict>
 			<key>isShown</key>

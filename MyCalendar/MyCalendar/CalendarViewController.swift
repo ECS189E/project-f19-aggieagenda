@@ -76,7 +76,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let title = self.activities[section].key
-        return "\(title)"
+        let titlestring = dateFormatter.string(from:title)
+        return "\(titlestring)"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

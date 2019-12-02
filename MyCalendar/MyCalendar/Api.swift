@@ -9,8 +9,15 @@
 
 import Foundation
 
-struct Api{
-    static func ApiCall(user:User){
+class Api{
+    
+    var jsondata: [[String:Any]]
+    
+    init(){
+        self.jsondata = [["":""]]
+    }
+    
+    func ApiCall(user:User, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         let headers = [
             "Authorization": "Bearer 3438~uiAiZbeRqNRGiAAR8qzKhsUAl6wjnCOO1B0yLiARM5pbm6vLuVCl7nppz6V4baRv",
             "User-Agent": "PostmanRuntime/7.20.1",
@@ -41,14 +48,21 @@ struct Api{
                     let jsonResponse = try JSONSerialization.jsonObject(with:
                                                   dataResponse, options: [])
                     guard let jsonArray = jsonResponse as? [[String: Any]] else {
+                        DispatchQueue.main.async{
+                            completionHandler(nil, "error")
+                        }
                           return
                     }
-                    for dic in jsonArray{
+                    self.jsondata = jsonArray
+                    DispatchQueue.main.async {
+                        completionHandler("complete", nil)
+                    }
+                    /*for dic in self.jsondata{
                         guard let title = dic["title"] as? String else { return }
                         guard let date = dic["all_day_date"] as? String else { return }
                         print(title + " " + date) //Output
 //                        print(date)
-                    }
+                    }*/
                     }}catch{
                         print("no")
                 }
@@ -57,5 +71,6 @@ struct Api{
         
         dataTask.resume()
     }
+    
     
 }

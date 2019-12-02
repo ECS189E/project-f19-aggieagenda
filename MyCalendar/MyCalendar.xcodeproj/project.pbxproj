@@ -17,6 +17,8 @@
 		0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F880A1C23867B62001D89DC /* CalendarViewController.swift */; };
 		0FD2C4692392675F00FD0E58 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C4682392675E00FD0E58 /* Api.swift */; };
 		0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46A239273EA00FD0E58 /* classes.swift */; };
+		0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */; };
+		0FD2C473239527D100FD0E58 /* PopupAddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */; };
 		701D518BE87E9A1281B24B42 /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1B06BB35FA5C622527C144 /* Pods_MyCalendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,9 @@
 		0F880A1C23867B62001D89DC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		0FD2C4682392675E00FD0E58 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		0FD2C46A239273EA00FD0E58 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
+		0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = PopupAddEvent.storyboard; path = "/Users/yanyubing/Desktop/project-f19-helloworld/MyCalendar/MyCalendar/PopupAddEvent.storyboard"; sourceTree = "<absolute>"; };
+		0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupAddEventViewController.swift; sourceTree = "<group>"; };
 		5781D82ADC1276CFA5223100 /* Pods-MyCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.debug.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		8F1B06BB35FA5C622527C144 /* Pods_MyCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCFB1AF010C5FEB676C39CA /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,19 +76,30 @@
 		0F880A0523866C30001D89DC /* MyCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				0FD2C46E23951DA300FD0E58 /* Extensions */,
 				0F880A0623866C30001D89DC /* AppDelegate.swift */,
+				0FD2C4682392675E00FD0E58 /* Api.swift */,
+				0FD2C46A239273EA00FD0E58 /* classes.swift */,
 				0F880A0823866C30001D89DC /* SceneDelegate.swift */,
+				0F880A1123866C34001D89DC /* LaunchScreen.storyboard */,
 				0F880A0A23866C30001D89DC /* LoginViewController.swift */,
 				0F880A0C23866C30001D89DC /* Main.storyboard */,
-				0FD2C4682392675E00FD0E58 /* Api.swift */,
+				0F880A1C23867B62001D89DC /* CalendarViewController.swift */,
+				0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */,
+				0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */,
 				0F880A0F23866C34001D89DC /* Assets.xcassets */,
-				0F880A1123866C34001D89DC /* LaunchScreen.storyboard */,
 				0F880A1A23866CDA001D89DC /* GoogleService-Info.plist */,
 				0F880A1423866C34001D89DC /* Info.plist */,
-				0F880A1C23867B62001D89DC /* CalendarViewController.swift */,
-				0FD2C46A239273EA00FD0E58 /* classes.swift */,
 			);
 			path = MyCalendar;
+			sourceTree = "<group>";
+		};
+		0FD2C46E23951DA300FD0E58 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		230800E6F62F980681DEB0BB /* Pods */ = {
@@ -222,7 +238,9 @@
 				0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */,
 				0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */,
 				0F880A0B23866C30001D89DC /* LoginViewController.swift in Sources */,
+				0FD2C473239527D100FD0E58 /* PopupAddEventViewController.swift in Sources */,
 				0F880A0723866C30001D89DC /* AppDelegate.swift in Sources */,
+				0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */,
 				0FD2C4692392675F00FD0E58 /* Api.swift in Sources */,
 				0F880A0923866C30001D89DC /* SceneDelegate.swift in Sources */,
 			);

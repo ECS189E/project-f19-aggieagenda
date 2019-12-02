@@ -106,7 +106,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" image="baseline_add_white_48dp"/>
                                 <connections>
-                                    <segue destination="BYe-Nd-Rx2" kind="presentation" identifier="addEventSegue" id="fwi-on-wtS"/>
+                                    <segue destination="BYe-Nd-Rx2" kind="presentation" id="fwi-on-wtS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -122,70 +122,20 @@
             </objects>
             <point key="canvasLocation" x="1785.5072463768117" y="97.767857142857139"/>
         </scene>
-        <!--Popup Add Event View Controller-->
+        <!--View Controller-->
         <scene sceneID="NWY-4q-ch2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YVe-5K-BMp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="PopupAddEvent" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="BYe-Nd-Rx2" customClass="PopupAddEventViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="BYe-Nd-Rx2" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EtX-li-Kkg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QzA-Lg-V6A">
-                                <rect key="frame" x="10" y="103" width="394" height="453"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eH-u5-FX6">
-                                        <rect key="frame" x="106" y="8" width="182" height="57"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="40"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter the event title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cki-4h-9Jk">
-                                        <rect key="frame" x="37" y="73" width="321" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="GT6-MV-3Wt">
-                                        <rect key="frame" x="18" y="147" width="358" height="208"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    </datePicker>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lQ-eG-YxK">
-                                        <rect key="frame" x="271" y="382" width="105" height="63"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Cancel"/>
-                                        <connections>
-                                            <action selector="cancelEvent:" destination="BYe-Nd-Rx2" eventType="touchUpInside" id="943-fv-YVk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0c-oT-rmj">
-                                        <rect key="frame" x="18" y="382" width="105" height="63"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Add"/>
-                                        <connections>
-                                            <action selector="addEvent:" destination="BYe-Nd-Rx2" eventType="touchUpInside" id="yOC-wA-Hft"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="O0R-wZ-RdX"/>
                     </view>
-                    <connections>
-                        <outlet property="AddEventButton" destination="A0c-oT-rmj" id="SwK-Xi-Ark"/>
-                        <outlet property="CancelEventButton" destination="9lQ-eG-YxK" id="Gdz-k5-FeW"/>
-                        <outlet property="EventTitle" destination="Cki-4h-9Jk" id="npW-Uo-RUb"/>
-                        <outlet property="datePicker" destination="GT6-MV-3Wt" id="3FR-Pu-iOe"/>
-                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YVe-5K-BMp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2511.594202898551" y="97.767857142857139"/>
+            <point key="canvasLocation" x="2513" y="98"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Iay-FY-g9q">

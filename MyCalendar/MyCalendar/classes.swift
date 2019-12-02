@@ -9,13 +9,7 @@ import Foundation
 
 
 class User {
-    var eventDate: String?
-    var eventName: String?
-    
-    init() {
-        self.eventDate = ""
-        self.eventName = ""
-    }
+    static var user = [Date:[String]] ()
 }
 
 

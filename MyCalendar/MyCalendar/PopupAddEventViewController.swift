@@ -18,6 +18,7 @@ class PopupAddEventViewController: UIViewController {
     
     var doneSaving: (() -> ())?
     var activities = [(key: Date, value: [event])] ()
+    var tempactivities = [(key: Date, value: [event])] ()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,27 +26,28 @@ class PopupAddEventViewController: UIViewController {
     }
     
     func addData() {
-        var temp = [Date:[event]] ()
+       // var temp = [Date:[event]] ()
         var check:Bool = false
         var tempevents:[event] = []
         let date = datePicker.date
         guard let title = EventTitle.text else { return }
-        
-        for i in temp{
-            if i.key == date{
-                tempevents = i.value
+        for (index, data) in activities.enumerated(){
+            if data.key == date{
+                tempevents = data.value
                 let tempevent = event.init(title)
                 tempevents.append(tempevent)
-                temp.updateValue(tempevents, forKey: date)
+                activities[index].value = tempevents
+                //User.user.updateValue(tempevents, forKey: date)
                 check = true
             }
         }
         if !check{
             let tempevent = event.init(title)
             tempevents.append(tempevent)
-            temp.updateValue(tempevents, forKey: date)
+            activities.append((key: date, value: tempevents))
+           // User.user.updateValue(tempevents, forKey: date)
         }
-        User.user = temp.sorted{$0.key < $1.key}
+        User.user = activities
     }
     
     @IBAction func addEvent(_ sender: UIButton) {

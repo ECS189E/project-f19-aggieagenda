@@ -26,7 +26,6 @@ class PopupAddEventViewController: UIViewController {
     }
     
     func addData() {
-       // var temp = [Date:[event]] ()
         var check:Bool = false
         var tempevents:[event] = []
         let date = datePicker.date

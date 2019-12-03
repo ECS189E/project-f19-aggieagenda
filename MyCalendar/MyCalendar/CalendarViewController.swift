@@ -116,7 +116,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                  }else{
                      self.activities.remove(at: indexPath.section)
                      User.user = self.activities
-                     self.tableview.reloadData()
+                    self.tableview.deleteSections([indexPath.section], with: .fade)
+                     //self.tableview.reloadData()
                  }
                  
                 // self.tableview.reloadData()

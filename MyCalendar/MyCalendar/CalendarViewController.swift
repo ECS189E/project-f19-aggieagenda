@@ -91,11 +91,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         self.activities = User.user.sorted{$0.key < $1.key}
 //        print(activities)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Amountcell") ?? UITableViewCell(style: .default, reuseIdentifier: "Amountcell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell") as! EventTableViewCell
         
         let title = self.activities[indexPath.section].value[indexPath.row].title
-        print(title)
-        cell.textLabel?.text = "\(title)"
+        cell.setCell(title:title)
+//        cell.textLabel?.text = "\(title)"
         return cell
     }
     

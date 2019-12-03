@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F2CF02623965CA400A81EFA /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2CF02523965CA400A81EFA /* EventTableViewCell.swift */; };
 		0F880A0723866C30001D89DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F880A0623866C30001D89DC /* AppDelegate.swift */; };
 		0F880A0923866C30001D89DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F880A0823866C30001D89DC /* SceneDelegate.swift */; };
 		0F880A0B23866C30001D89DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F880A0A23866C30001D89DC /* LoginViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F2CF02523965CA400A81EFA /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		0F880A0323866C30001D89DC /* MyCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F880A0623866C30001D89DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F880A0823866C30001D89DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				0F880A0A23866C30001D89DC /* LoginViewController.swift */,
 				0F880A0C23866C30001D89DC /* Main.storyboard */,
 				0F880A1C23867B62001D89DC /* CalendarViewController.swift */,
+				0F2CF02523965CA400A81EFA /* EventTableViewCell.swift */,
 				0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */,
 				0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */,
 				0F880A0F23866C34001D89DC /* Assets.xcassets */,
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F2CF02623965CA400A81EFA /* EventTableViewCell.swift in Sources */,
 				0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */,
 				0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */,
 				0F880A0B23866C30001D89DC /* LoginViewController.swift in Sources */,

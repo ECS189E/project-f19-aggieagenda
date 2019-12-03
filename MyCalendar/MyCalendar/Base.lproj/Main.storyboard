@@ -67,7 +67,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zEn-li-HQO" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6RG-gI-VnR"/>
                             <constraint firstItem="zEn-li-HQO" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Gnc-Sn-ypR"/>
@@ -96,7 +96,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cFK-9N-Pth">
-                                <rect key="frame" x="20" y="44" width="374" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -110,7 +110,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="vxp-Um-T48"/>
                     </view>
                     <connections>
@@ -125,7 +125,6 @@
         <!--Popup Add Event View Controller-->
         <scene sceneID="NWY-4q-ch2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YVe-5K-BMp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="PopupAddEvent" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="BYe-Nd-Rx2" customClass="PopupAddEventViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EtX-li-Kkg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -184,6 +183,7 @@
                         <outlet property="datePicker" destination="GT6-MV-3Wt" id="3FR-Pu-iOe"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YVe-5K-BMp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2511.594202898551" y="97.767857142857139"/>
         </scene>

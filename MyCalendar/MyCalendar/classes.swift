@@ -7,9 +7,16 @@
 //
 import Foundation
 
+class event {
+    var title:String
+    
+    init(_ dataString: String){
+        title = dataString
+    }
+}
 
 class User {
-    static var user = [Date:[String]] ()
+    static var user = [(key: Date, value: [event])] ()
 }
 
 

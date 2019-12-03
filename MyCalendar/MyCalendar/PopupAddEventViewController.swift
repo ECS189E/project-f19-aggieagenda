@@ -17,7 +17,7 @@ class PopupAddEventViewController: UIViewController {
     @IBOutlet weak var CancelEventButton: UIButton!
     
     var doneSaving: (() -> ())?
-    var activities = [(key: Date, value: [String])] ()
+    var activities = [(key: Date, value: [event])] ()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,26 +25,27 @@ class PopupAddEventViewController: UIViewController {
     }
     
     func addData() {
-        var temp = [Date:[String]] ()
+        var temp = [Date:[event]] ()
         var check:Bool = false
-        var temptitles:[String] = []
+        var tempevents:[event] = []
         let date = datePicker.date
         guard let title = EventTitle.text else { return }
         
         for i in temp{
             if i.key == date{
-                temptitles = i.value
-                temptitles.append(title)
-                temp.updateValue(temptitles, forKey: date)
-                User.user.updateValue(temptitles, forKey: date)
+                tempevents = i.value
+                let tempevent = event.init(title)
+                tempevents.append(tempevent)
+                temp.updateValue(tempevents, forKey: date)
                 check = true
             }
         }
         if !check{
-            temptitles.append(title)
-            temp.updateValue(temptitles, forKey: date)
-            User.user.updateValue(temptitles, forKey: date)
+            let tempevent = event.init(title)
+            tempevents.append(tempevent)
+            temp.updateValue(tempevents, forKey: date)
         }
+        User.user = temp.sorted{$0.key < $1.key}
     }
     
     @IBAction func addEvent(_ sender: UIButton) {

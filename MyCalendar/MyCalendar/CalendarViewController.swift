@@ -52,7 +52,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateFormatter.timeStyle = .none
         self.tableview.delegate = self
         self.tableview.dataSource = self
         canvasdataapi.ApiCall(user: User.user){
@@ -94,7 +93,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "Amountcell") ?? UITableViewCell(style: .default, reuseIdentifier: "Amountcell")
         
         let title = self.activities[indexPath.section].value[indexPath.row].title
-        print(title)
+//        print(title)
         cell.textLabel?.text = "\(title)"
         return cell
     }

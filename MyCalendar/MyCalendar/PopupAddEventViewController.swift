@@ -19,6 +19,8 @@ class PopupAddEventViewController: UIViewController {
     var doneSaving: (() -> ())?
     var activities = [(key: Date, value: [event])] ()
     var tempactivities = [(key: Date, value: [event])] ()
+    let dateFormatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,10 +31,14 @@ class PopupAddEventViewController: UIViewController {
        // var temp = [Date:[event]] ()
         var check:Bool = false
         var tempevents:[event] = []
+
         let date = datePicker.date
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
         guard let title = EventTitle.text else { return }
         for (index, data) in activities.enumerated(){
-            if data.key == date{
+            let newdateString = dateFormatter.string(from: data.key)
+            if newdateString == dateString{
                 tempevents = data.value
                 let tempevent = event.init(title)
                 tempevents.append(tempevent)

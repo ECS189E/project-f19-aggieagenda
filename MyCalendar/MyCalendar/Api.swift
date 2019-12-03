@@ -17,9 +17,10 @@ class Api{
         self.jsondata = [["":""]]
     }
     
-    func ApiCall(user:[(key:Date,value: [event])], completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
+    func ApiCall(token:String,user:[(key:Date,value: [event])], completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
+    
         let headers = [
-            "Authorization": "Bearer 3438~uiAiZbeRqNRGiAAR8qzKhsUAl6wjnCOO1B0yLiARM5pbm6vLuVCl7nppz6V4baRv",
+            "Authorization": token,
             "User-Agent": "PostmanRuntime/7.20.1",
             "Accept": "*/*",
             "Cache-Control": "no-cache",

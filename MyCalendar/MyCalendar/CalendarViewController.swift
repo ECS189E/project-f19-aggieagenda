@@ -15,6 +15,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var email:String = ""
 //    var user = User()
     var count:Int = 0
+    var token:String = "Bearer 3438~uiAiZbeRqNRGiAAR8qzKhsUAl6wjnCOO1B0yLiARM5pbm6vLuVCl7nppz6V4baRv"
     var activities = [(key: Date, value: [event])] ()
     let dateFormatter = DateFormatter()
     @IBOutlet weak var tableview: UITableView!
@@ -55,7 +56,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 //        dateFormatter.timeStyle = .none
         self.tableview.delegate = self
         self.tableview.dataSource = self
-        canvasdataapi.ApiCall(user: User.user){
+        canvasdataapi.ApiCall(token:token,user: User.user){
             response, error in
             if(response != nil){
                 self.jsondata = self.canvasdataapi.jsondata

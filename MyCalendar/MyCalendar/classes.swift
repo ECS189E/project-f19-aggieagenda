@@ -9,9 +9,11 @@ import Foundation
 
 class event {
     var title:String
+    var isCanvasevent: Bool
     
     init(_ dataString: String){
         title = dataString
+        isCanvasevent = false
     }
 }
 

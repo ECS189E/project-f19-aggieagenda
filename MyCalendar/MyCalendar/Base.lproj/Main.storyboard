@@ -67,7 +67,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zEn-li-HQO" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6RG-gI-VnR"/>
                             <constraint firstItem="zEn-li-HQO" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Gnc-Sn-ypR"/>
@@ -148,13 +148,14 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="vxp-Um-T48"/>
                     </view>
                     <navigationItem key="navigationItem" title="My Schedule" id="7ho-WK-Ujc"/>
                     <connections>
                         <outlet property="AddButton" destination="oWh-19-Z2k" id="GXd-lT-phj"/>
                         <outlet property="tableview" destination="cFK-9N-Pth" id="CQJ-S1-jvS"/>
+                        <segue destination="YM8-OW-oNX" kind="presentation" identifier="toEvent" modalPresentationStyle="fullScreen" id="SMS-qt-n3R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQw-hf-vbN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -226,6 +227,31 @@
             </objects>
             <point key="canvasLocation" x="3421.739130434783" y="97.767857142857139"/>
         </scene>
+        <!--Event View Controller-->
+        <scene sceneID="oKg-ev-ZXO">
+            <objects>
+                <viewController id="YM8-OW-oNX" customClass="EventViewController" customModule="MyCalendar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KfR-8u-hGs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-bM-qxH">
+                                <rect key="frame" x="26" y="44" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="3EE-2b-4d7" kind="presentation" id="KW9-3b-hqC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="2Lr-mB-xcB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dM9-7P-zSc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4182" y="96"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Iay-FY-g9q">
             <objects>
@@ -272,4 +298,7 @@
     <resources>
         <image name="baseline_add_white_48dp" width="96" height="96"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="KW9-3b-hqC"/>
+    </inferredMetricsTieBreakers>
 </document>

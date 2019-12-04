@@ -11,5 +11,7 @@ target 'MyCalendar' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'OAuthSwift', '~> 2.0.0'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
 
 end

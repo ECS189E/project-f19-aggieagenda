@@ -21,6 +21,7 @@
 		0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */; };
 		0FD2C473239527D100FD0E58 /* PopupAddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */; };
 		701D518BE87E9A1281B24B42 /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1B06BB35FA5C622527C144 /* Pods_MyCalendar.framework */; };
+		FA46CF9923974A6A009B89C9 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46CF9823974A6A009B89C9 /* EventViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		5781D82ADC1276CFA5223100 /* Pods-MyCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.debug.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		8F1B06BB35FA5C622527C144 /* Pods_MyCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCFB1AF010C5FEB676C39CA /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
+		FA46CF9823974A6A009B89C9 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				0F880A1123866C34001D89DC /* LaunchScreen.storyboard */,
 				0F880A0A23866C30001D89DC /* LoginViewController.swift */,
 				0F880A0C23866C30001D89DC /* Main.storyboard */,
+				FA46CF9823974A6A009B89C9 /* EventViewController.swift */,
 				0F880A1C23867B62001D89DC /* CalendarViewController.swift */,
 				0F2CF02523965CA400A81EFA /* EventTableViewCell.swift */,
 				0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */,
@@ -243,6 +246,7 @@
 				0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */,
 				0F880A0B23866C30001D89DC /* LoginViewController.swift in Sources */,
 				0FD2C473239527D100FD0E58 /* PopupAddEventViewController.swift in Sources */,
+				FA46CF9923974A6A009B89C9 /* EventViewController.swift in Sources */,
 				0F880A0723866C30001D89DC /* AppDelegate.swift in Sources */,
 				0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */,
 				0FD2C4692392675F00FD0E58 /* Api.swift in Sources */,

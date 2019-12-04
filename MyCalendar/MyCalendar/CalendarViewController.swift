@@ -7,22 +7,29 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var canvasdataapi = Api.init()
+    var ref: DocumentReference? = nil
     var jsondata:[[String:Any]] = [["":""]]
     var email:String = ""
 //    var user = User()
     var count:Int = 0
+    var id:Int = 0
+    var name:String = ""
     var token:String = "Bearer 3438~uiAiZbeRqNRGiAAR8qzKhsUAl6wjnCOO1B0yLiARM5pbm6vLuVCl7nppz6V4baRv"
     var activities = [(key: Date, value: [event])] ()
+    var selectdateindex:Int = 0
+    var selecteventindex:Int = 0
     let dateFormatter = DateFormatter()
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var AddButton: UIButton!
     
     
-    func sortdata() {
+    func initializeCanvasevents() {
         var temp = [Date:[event]] ()
         var check:Bool = false
         for dic in self.jsondata{
@@ -35,12 +42,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             for i in temp{
                 if i.key == formatdate{
                     temptitles = i.value
+                    tempevent.isCanvasevent = true
                     temptitles.append(tempevent)
                     temp.updateValue(temptitles, forKey: formatdate)
                     check = true
                 }
             }
             if !check{
+                tempevent.isCanvasevent = true
                 temptitles.append(tempevent)
                 temp.updateValue(temptitles, forKey: formatdate)
             }
@@ -56,13 +65,22 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 //        dateFormatter.timeStyle = .none
         self.tableview.delegate = self
         self.tableview.dataSource = self
-        canvasdataapi.ApiCall(token:token,user: User.user){
+        canvasdataapi.ApiCall(token:token){
             response, error in
             if(response != nil){
-                self.jsondata = self.canvasdataapi.jsondata
-                self.sortdata()
+                self.jsondata = self.canvasdataapi.upcomingeventsdata
+                self.initializeCanvasevents()
                 self.count = self.jsondata.count
                 self.tableview.reloadData()
+            }
+        }
+        canvasdataapi.getUserinformation(token:token){
+            response, error in
+            if(response != nil){
+                self.id = self.canvasdataapi.id
+                self.name = self.canvasdataapi.username
+                print(self.id)
+                print("name: " + self.name)
             }
         }
         AddButton.SetAddButtonUI()
@@ -100,6 +118,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if self.activities[indexPath.section].value[indexPath.row].isCanvasevent{
+            return false
+        }else{
+            return true
+        }
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete"){(contextualAction, view, actionPerformed: @escaping (Bool) -> Void) in
             //delete here
@@ -130,7 +156,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         return UISwipeActionsConfiguration(actions: [delete])
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       // self.index = indexPath.row
+        self.selectdateindex = indexPath.section
+        self.selecteventindex = indexPath.row
+        self.performSegue(withIdentifier: "toEvent", sender: self)
+        
+        
+    }
    /* func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //for further instructions
     }*/
@@ -143,6 +176,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     self?.tableview.reloadData()
                 }
             }
+        }else if segue.identifier == "toEvent"{
+            let VC = segue.destination as! EventViewController
+            VC.event = activities[selectdateindex].value[selecteventindex]
         }
     }
 }

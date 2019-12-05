@@ -126,6 +126,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.user.getdata(db: self.db, dates: dates){
                     response, error in
                     if response != nil{
+                        
                         self.tableview.reloadData()
                     }
                 }
@@ -153,18 +154,17 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                 }
                                             }
                                     }
-                                    self.db.collection("users").document(dname).setData(["dates":allstring]){
+                                self.db.collection("users").document(dname).setData(["dates":allstring]){
                                         err in
                                             if err != nil{
                                                 print("there is some error")
                                             }else{
                                                 print("successfully written")
-                                        }
+                                            }
                                     }
                                 }
                             }
                         }
-                        
                     }
                 }
             }
@@ -231,7 +231,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        tableview.allowsSelectionDuringEditing = true
         let delete = UIContextualAction(style: .destructive, title: "Delete"){(contextualAction, view, actionPerformed: @escaping (Bool) -> Void) in
             //delete here
             let alert = UIAlertController(title: "Delete Event", message: "Are you sure you want to delete this event", preferredStyle: .alert)
@@ -323,7 +325,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }else if segue.identifier == "toEvent"{
             let VC = segue.destination as! EventViewController
-            VC.event = activities[selectdateindex].value[selecteventindex]
+            VC.oneevent = activities[selectdateindex].value[selecteventindex]
+//            VC.activities = activities
+//            VC.selectdateindex = selectdateindex
+//            VC.selecteventindex = selecteventindex
+            
         }
     }
 }

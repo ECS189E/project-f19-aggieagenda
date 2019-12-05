@@ -22,6 +22,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     let db = Firestore.firestore()
+    private let refreshControl = UIRefreshControl()
     var canvasdataapi = Api.init()
     var user = User()
     var ref: DocumentReference? = nil
@@ -34,10 +35,15 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectdateindex:Int = 0
     var selecteventindex:Int = 0
     let dateFormatter = DateFormatter()
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var AddButton: UIButton!
     
-    
+    @objc private func refreshcalender(_ sender: Any){
+        getData()
+        self.refreshControl.endRefreshing()
+        self.activityIndicatorView.stopAnimating()
+    }
     func initializeCanvasevents() {
         var temp = [Date:[event]] ()
         var check:Bool = false
@@ -130,6 +136,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 //        dateFormatter.timeStyle = .none
         self.tableview.delegate = self
         self.tableview.dataSource = self
+        refreshControl.addTarget(self, action: #selector(refreshcalender(_:)), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Getting calender data...")
+        self.tableview.refreshControl = refreshControl
         user.getid(isCanvas: true, token: token, canvasapi: canvasdataapi){
             response, error in
             if(response != nil){
@@ -142,7 +151,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view.
     }
     
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         self.activities = user.user.sorted{$0.key < $1.key}
         //print(activities)

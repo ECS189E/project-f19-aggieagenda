@@ -20,6 +20,12 @@
 		0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */; };
 		0FD2C473239527D100FD0E58 /* PopupAddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */; };
 		510AA5DCEEA95C8E4D66C549 /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0860BDE9A18EEF9BFC266DB /* Pods_MyCalendar.framework */; };
+		8EAD038623991A7D00DB5FFD /* CanvasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAD038423991A7D00DB5FFD /* CanvasTableViewCell.swift */; };
+		8EAD038723991A7D00DB5FFD /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAD038523991A7D00DB5FFD /* CanvasViewController.swift */; };
+		8EAD038C23991E3500DB5FFD /* step3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038823991E3400DB5FFD /* step3.png */; };
+		8EAD038D23991E3500DB5FFD /* step1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038923991E3500DB5FFD /* step1.png */; };
+		8EAD038E23991E3500DB5FFD /* step2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038A23991E3500DB5FFD /* step2.png */; };
+		8EAD038F23991E3500DB5FFD /* step4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038B23991E3500DB5FFD /* step4.png */; };
 		FA46CF9923974A6A009B89C9 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46CF9823974A6A009B89C9 /* EventViewController.swift */; };
 		FAF1A4862397EEA6009B3701 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAF1A4852397EEA5009B3701 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -40,6 +46,12 @@
 		0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = PopupAddEvent.storyboard; path = "/Users/yanyubing/Desktop/project-f19-helloworld/MyCalendar/MyCalendar/PopupAddEvent.storyboard"; sourceTree = "<absolute>"; };
 		0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupAddEventViewController.swift; sourceTree = "<group>"; };
 		74AC2D843D9D7202B04D7785 /* Pods-MyCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.debug.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.debug.xcconfig"; sourceTree = "<group>"; };
+		8EAD038423991A7D00DB5FFD /* CanvasTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasTableViewCell.swift; sourceTree = "<group>"; };
+		8EAD038523991A7D00DB5FFD /* CanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
+		8EAD038823991E3400DB5FFD /* step3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step3.png; sourceTree = "<group>"; };
+		8EAD038923991E3500DB5FFD /* step1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1.png; sourceTree = "<group>"; };
+		8EAD038A23991E3500DB5FFD /* step2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step2.png; sourceTree = "<group>"; };
+		8EAD038B23991E3500DB5FFD /* step4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step4.png; sourceTree = "<group>"; };
 		C124ABFDF70142B2D17F88FD /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		D0860BDE9A18EEF9BFC266DB /* Pods_MyCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA46CF9823974A6A009B89C9 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -90,9 +102,15 @@
 				0F880A0C23866C30001D89DC /* Main.storyboard */,
 				FA46CF9823974A6A009B89C9 /* EventViewController.swift */,
 				0F880A1C23867B62001D89DC /* CalendarViewController.swift */,
+				8EAD038423991A7D00DB5FFD /* CanvasTableViewCell.swift */,
+				8EAD038523991A7D00DB5FFD /* CanvasViewController.swift */,
 				0F2CF02523965CA400A81EFA /* EventTableViewCell.swift */,
 				0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */,
 				0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */,
+				8EAD038923991E3500DB5FFD /* step1.png */,
+				8EAD038A23991E3500DB5FFD /* step2.png */,
+				8EAD038823991E3400DB5FFD /* step3.png */,
+				8EAD038B23991E3500DB5FFD /* step4.png */,
 				0F880A0F23866C34001D89DC /* Assets.xcassets */,
 				FADDEE802397F5F200F0F00D /* Info.plist */,
 				FAF1A4852397EEA5009B3701 /* GoogleService-Info.plist */,
@@ -186,8 +204,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F880A1323866C34001D89DC /* LaunchScreen.storyboard in Resources */,
+				8EAD038D23991E3500DB5FFD /* step1.png in Resources */,
 				FAF1A4862397EEA6009B3701 /* GoogleService-Info.plist in Resources */,
+				8EAD038C23991E3500DB5FFD /* step3.png in Resources */,
+				8EAD038F23991E3500DB5FFD /* step4.png in Resources */,
 				0F880A1023866C34001D89DC /* Assets.xcassets in Resources */,
+				8EAD038E23991E3500DB5FFD /* step2.png in Resources */,
 				0F880A0E23866C30001D89DC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,11 +267,13 @@
 				0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */,
 				0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */,
 				0F880A0B23866C30001D89DC /* LoginViewController.swift in Sources */,
+				8EAD038723991A7D00DB5FFD /* CanvasViewController.swift in Sources */,
 				0FD2C473239527D100FD0E58 /* PopupAddEventViewController.swift in Sources */,
 				FA46CF9923974A6A009B89C9 /* EventViewController.swift in Sources */,
 				0F880A0723866C30001D89DC /* AppDelegate.swift in Sources */,
 				0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */,
 				0FD2C4692392675F00FD0E58 /* Api.swift in Sources */,
+				8EAD038623991A7D00DB5FFD /* CanvasTableViewCell.swift in Sources */,
 				0F880A0923866C30001D89DC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

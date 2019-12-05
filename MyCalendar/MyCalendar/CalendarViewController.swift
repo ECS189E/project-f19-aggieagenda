@@ -13,6 +13,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func senduserdataToPreviousVC(newuser: User, completionHandler: @escaping (String?, String?) -> Void) {
         self.user = newuser
         self.email = newuser.id ?? ""
+        self.needsinitialized = false
         self.tableview.reloadData()
         DispatchQueue.main.async{
             completionHandler("response", nil)
@@ -36,6 +37,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var selecteventindex:Int = 0
     let dateFormatter = DateFormatter()
     var isfromCanvas:Bool = false
+    var needsinitialized:Bool = true
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var AddButton: UIButton!
@@ -243,12 +245,15 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl.addTarget(self, action: #selector(refreshcalender(_:)), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Getting calender data...")
         self.tableview.refreshControl = refreshControl
-        user.getid(isCanvas: isfromCanvas, email: email, token: token, canvasapi: canvasdataapi){
-            response, error in
-            if(response != nil){
-                self.getData()
+        if(needsinitialized){
+            user.getid(isCanvas: isfromCanvas, email: email, token: token, canvasapi: canvasdataapi){
+                response, error in
+                if(response != nil){
+                    self.getData()
+                }
             }
         }
+        
         
        
         AddButton.SetAddButtonUI()

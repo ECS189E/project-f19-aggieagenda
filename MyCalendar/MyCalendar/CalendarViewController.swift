@@ -45,6 +45,55 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         self.refreshControl.endRefreshing()
         self.activityIndicatorView.stopAnimating()
     }
+    /*func checkCanvasUpdates(completionHandler: @escaping (_ Response: String?, _ Error: String?) -> Void) {
+        self.canvasdataapi.ApiCall(token:self.token){
+            response, error in
+            if(response != nil){
+                self.jsondata = self.canvasdataapi.upcomingeventsdata
+                var temp:[String] = []
+                for dic in self.jsondata{
+                //print(dic)
+                    guard let date = dic["all_day_date"] as? String else { return }
+                    guard let title = dic["title"] as? String else { return }
+                    guard let assignment = dic["assignment"] as? [String:Any] else{return }
+                    guard let courseid = assignment["course_id"] as? Int else{return}
+                    temp.append(date+title+String(courseid))
+                }
+                let userref = self.db.collection("users").document(self.user.id ?? "")
+                var temp2: [String] = []
+                userref.getDocument{(document, error) in
+                    if let document = document, document.exists{
+                        //print(document.documentID)
+                        let temp = (document.data()?["Canvasdata"] as? NSArray) as Array?
+                        guard let canvas = temp else{
+                            return
+                        }
+                        for i in canvas{
+                            let canvasstring = String(_cocoaString: i)
+                            temp2.append(canvasstring)
+                        }
+                    }
+                    for i in temp {
+                        var check:Bool = false
+                        for j in temp2 {
+                            if i == j{
+                                check = true
+                            }
+                        }
+                        if !check{
+                            self.initializeCanvasevents(){
+                                response, error in
+                                if response != nil{
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+    }*/
     func initializeCanvasevents(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
         var temp = [Date:[event]] ()
         var check:Bool = false

@@ -8,6 +8,32 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+var vSpinner : UIView?
+
+extension UIViewController {
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        vSpinner = spinnerView
+    }
+    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+            vSpinner?.removeFromSuperview()
+            vSpinner = nil
+        }
+    }
+}
+
 
 class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MyProtocol{
     func senduserdataToPreviousVC(newuser: User, completionHandler: @escaping (String?, String?) -> Void) {
@@ -358,6 +384,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl.addTarget(self, action: #selector(refreshcalender(_:)), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Getting calender data...")
         self.tableview.refreshControl = refreshControl
+        self.showSpinner(onView: self.view)
         if(needsinitialized){
             user.getid(isCanvas: isfromCanvas, email: email, token: token, canvasapi: canvasdataapi){
                 response, error in
@@ -365,7 +392,12 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.getData(){
                         getdataresponse, error in
                         if getdataresponse != nil{
+                            self.removeSpinner()
                              self.tableview.reloadData()
+                        }
+                        if error != nil{
+                            self.removeSpinner()
+                            //someerrormessage
                         }
                     }
                 }

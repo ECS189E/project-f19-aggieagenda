@@ -33,11 +33,13 @@ class User {
     var id: String? = nil
     var username: String? = nil
     var token:String? = nil
+    var isfromCanvas:Bool? = nil
     
     func getid(isCanvas: Bool, email: String, token: String, canvasapi: Api, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         if(!isCanvas){
             self.id = email
             self.token = ""
+            self.isfromCanvas = false
             completionHandler("response", nil)
         }else{
             canvasapi.getUserinformation(token:token){
@@ -46,13 +48,19 @@ class User {
                     self.id = email
                     self.token = token
                     self.username = canvasapi.username
+                    self.isfromCanvas = true
+                    print("check")
                     DispatchQueue.main.async{
                         completionHandler("response", nil)
                     }
                 }
                 if(error != nil){
+                    self.isfromCanvas = false
+                    self.id = email
+                    self.token = ""
+                    print(self.id)
                     DispatchQueue.main.async{
-                        completionHandler(nil, "error")
+                        completionHandler("response", nil)
                     }
                 }
             }

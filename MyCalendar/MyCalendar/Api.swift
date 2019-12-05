@@ -117,8 +117,14 @@ class Api{
                               return
                         }
                        // print(jsonArray)
-                        self.id = jsonArray["id"] as? Int ?? 0
+                        self.id = jsonArray["id"] as? Int ?? -100
                         self.username = jsonArray["name"] as? String ?? ""
+                        if self.id == -100{
+                            DispatchQueue.main.async{
+                                completionHandler(nil, "error")
+                            }
+                            return
+                        }
                         DispatchQueue.main.async {
                             completionHandler("complete", nil)
                         }

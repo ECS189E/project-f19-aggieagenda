@@ -84,7 +84,7 @@ class PopupAddEventViewController: UIViewController {
             let tempevent = event.init(title, dateString, false, "")
             tempevents.append(tempevent)
             datestrings.append(dateString)
-            self.db?.collection("users").document(self.user?.id ?? "").setData(["dates":datestrings]){
+            self.db?.collection("users").document(self.user?.id ?? "").updateData(["dates":datestrings]){
                 err in
                     if err != nil{
                         print("there is some error")

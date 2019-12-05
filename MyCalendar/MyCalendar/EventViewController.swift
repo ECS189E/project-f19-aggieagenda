@@ -57,15 +57,9 @@ class EventViewController: UIViewController {
         EventTitle.text = oneevent?.title
         EventDate.text = oneevent?.date
         EventSubject.text = oneevent?.subject
-        //        print(oneevent?.title)
-        //        print(oneevent?.isCanvasevent)
-        //        print(oneevent?.subject)
-                super.viewDidLoad()
         let hr:Int = Int(HrInput.text ?? "0") ?? 0
         let min:Int = Int(MinInput.text ?? "0") ?? 0
         let sec:Int = Int(SecInput.text ?? "0") ?? 0
-        print(hr)
-        print(sec)
         chosenTimeInterval = sec + 60 * min + 3600 * hr
         seconds = chosenTimeInterval
         CountDownTimer.text = timeString(time: Double(chosenTimeInterval))
@@ -148,12 +142,7 @@ class EventViewController: UIViewController {
 //        isTimerRunning = false
 //        self.StopButton.isEnabled = false
 //    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       if segue.identifier == "backToEvent"{
-            
-        }
-        
-    }
-
+    @IBAction func backPressed(_ sender: UIButton) {
+           dismiss(animated: true)
+       }
 }

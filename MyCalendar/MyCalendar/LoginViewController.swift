@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ViewController.swift zuixinban
 //  MyCalendar
 //
 //  Created by Yan Yubing on 11/20/19.
@@ -43,6 +43,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
                         calendarVC.email = email
+                        calendarVC.isfromCanvas = false
                         self.present(calendarVC, animated: true, completion: nil)
                     }else{
                         self.Success.text = "Unmatch Email & Password"
@@ -51,12 +52,15 @@ class ViewController: UIViewController,UITextFieldDelegate {
             }else{
                Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
                 if user != nil{
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
-                        calendarVC.email = email
-                        self.present(calendarVC, animated: true, completion: nil)
-                    }else{
+                    print("here")
                         
+                    }else{
+                        print("uh")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let canvasVC = storyboard.instantiateViewController(identifier: "Canvas") as! CanvasViewController
+                    canvasVC.email = email
+                    self.present(canvasVC, animated: true, completion: nil)
+
                     }
                 })
             }

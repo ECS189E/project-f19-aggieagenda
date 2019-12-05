@@ -44,116 +44,130 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var AddButton: UIButton!
     
     @objc private func refreshcalender(_ sender: Any){
-        getData()
-        self.refreshControl.endRefreshing()
-        self.activityIndicatorView.stopAnimating()
+        getData(){response, error in
+            if response != nil{
+                self.tableview.reloadData()
+                self.refreshControl.endRefreshing()
+                self.activityIndicatorView.stopAnimating()
+            }
+        }
+       
     }
     func checkCanvasUpdates(completionHandler: @escaping (_ Response: String?, _ Error: String?) -> Void) {
-        self.canvasdataapi.ApiCall(token:self.token){
-            response, error in
-            if(response != nil){
-                self.jsondata = self.canvasdataapi.upcomingeventsdata
-                var newcanvas:[String] = []
-                var datestrings:[String] = []
-                for dic in self.jsondata{
-                //print(dic)
-                    guard let date = dic["all_day_date"] as? String else { return }
-                    guard let title = dic["title"] as? String else { return }
-                    guard let assignment = dic["assignment"] as? [String:Any] else{return }
-                    guard let courseid = assignment["course_id"] as? Int else{return}
-                    newcanvas.append(date+title+String(courseid))
-                    datestrings.append(date)
-                }
-                let userref = self.db.collection("users").document(self.user.id ?? "")
-                var oldcanvas: [String] = []
-                var olddate: [String] = []
-                userref.getDocument{(document, error) in
-                    if let document = document, document.exists{
-                        //print(document.documentID)
-                        let temp = (document.data()?["Canvasdata"] as? NSArray) as Array?
-                        guard let canvas = temp else{
-                            return
+        let userref = self.db.collection("users").document(email)
+        userref.getDocument{(document, error) in
+            if let document = document, document.exists{
+                let temptoken = (document.data()?["token"] as? String) ?? ""
+                self.token = temptoken
+                self.canvasdataapi.ApiCall(token:temptoken){
+                    response, error in
+                    if(response != nil){
+                        self.jsondata = self.canvasdataapi.upcomingeventsdata
+                        var newcanvas:[String] = []
+                        var datestrings:[String] = []
+                        for dic in self.jsondata{
+                        //print(dic)
+                            guard let date = dic["all_day_date"] as? String else { return }
+                            guard let title = dic["title"] as? String else { return }
+                            guard let assignment = dic["assignment"] as? [String:Any] else{return }
+                            guard let courseid = assignment["course_id"] as? Int else{return}
+                            newcanvas.append(date+title+String(courseid))
+                            datestrings.append(date)
                         }
-                        for i in canvas{
-                            let canvasstring = String(_cocoaString: i)
-                            oldcanvas.append(canvasstring)
-                        }
-                        let storedate = (document.data()?["dates"] as? NSArray) as Array?
-                        guard let date = storedate else{
-                            return
-                        }
-                        for i in date{
-                            let datestring = String(_cocoaString: i)
-                            olddate.append(datestring)
-                        }
-                        
-                    }
-                    if newcanvas == oldcanvas{
-                        DispatchQueue.main.async {
-                            completionHandler("complete", nil)
-                        }
-                    }
-                    for i in newcanvas {
-                        var check:Bool = false
-                        for j in oldcanvas {
-                            if i == j{
-                                check = true
+                        let userref = self.db.collection("users").document(self.user.id ?? "")
+                        var oldcanvas: [String] = []
+                        var olddate: [String] = []
+                        userref.getDocument{(document, error) in
+                            if let document = document, document.exists{
+                                //print(document.documentID)
+                                let temp = (document.data()?["Canvasdata"] as? NSArray) as Array?
+                                guard let canvas = temp else{
+                                    return
+                                }
+                                for i in canvas{
+                                    let canvasstring = String(_cocoaString: i)
+                                    oldcanvas.append(canvasstring)
+                                }
+                                let storedate = (document.data()?["dates"] as? NSArray) as Array?
+                                guard let date = storedate else{
+                                    return
+                                }
+                                for i in date{
+                                    let datestring = String(_cocoaString: i)
+                                    olddate.append(datestring)
+                                }
+                                
                             }
-                        }
-                        
-                        if !check{
-                            self.initializeCanvasevents(){
-                                response, error in
-                                if response != nil{
-                                    for k in newcanvas{
-                                        var check:Bool = false
-                                        for m in oldcanvas{
-                                            if k == m{
-                                                check = true
-                                            }
-                                        }
-                                        if !check{
-                                            oldcanvas.append(k)
-                                        }
+                            if newcanvas == oldcanvas{
+                                DispatchQueue.main.async {
+                                    completionHandler("complete", nil)
+                                }
+                                return
+                            }
+                            for i in newcanvas {
+                                var check:Bool = false
+                                for j in oldcanvas {
+                                    if i == j{
+                                        check = true
                                     }
-                                    for k in datestrings{
-                                        var check:Bool = false
-                                        for m in olddate{
-                                            if k == m{
-                                                check = true
-                                            }
-                                        }
-                                        if !check{
-                                            olddate.append(k)
-                                        }
-                                    }
-                                    var allstring:[String] = []
-                                    for i in self.activities{
-                                        let tempdatestring = self.dateFormatter.string(from: i.key)
-                                        allstring.append(tempdatestring)
-                                        for j in i.value{
-                                            self.db.collection("users").document(self.email).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
-                                                    err in
-                                                    if err != nil{
-                                                        print("there is some error")
-                                                    }else{
-                                                        print("successfully written")
+                                }
+                                
+                                if !check{
+                                    self.initializeCanvasevents(){
+                                        response, error in
+                                        if response != nil{
+                                            for k in newcanvas{
+                                                var check:Bool = false
+                                                for m in oldcanvas{
+                                                    if k == m{
+                                                        check = true
                                                     }
                                                 }
-                                        }
-                                        self.db.collection("users").document(self.email).setData(["dates":olddate, "token":self.token, "isCanvasUser":true,"Canvasdata":oldcanvas]){
-                                                err in
-                                                if err != nil{
-                                                    print("there is some error")
-                                                }else{
-                                                    print("successfully written")
+                                                if !check{
+                                                    oldcanvas.append(k)
                                                 }
                                             }
-                                        DispatchQueue.main.async {
-                                            completionHandler("complete", nil)
+                                            for k in datestrings{
+                                                var check:Bool = false
+                                                for m in olddate{
+                                                    if k == m{
+                                                        check = true
+                                                    }
+                                                }
+                                                if !check{
+                                                    olddate.append(k)
+                                                }
+                                            }
+                                            var allstring:[String] = []
+                                            for i in self.activities{
+                                                let tempdatestring = self.dateFormatter.string(from: i.key)
+                                                allstring.append(tempdatestring)
+                                                for j in i.value{
+                                                    self.db.collection("users").document(self.email).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
+                                                            err in
+                                                            if err != nil{
+                                                                print("there is some error")
+                                                            }else{
+                                                                print("successfully written")
+                                                            }
+                                                        }
+                                                }
+                                                self.db.collection("users").document(self.email).setData(["dates":olddate, "token":self.token, "isCanvasUser":true,"Canvasdata":oldcanvas]){
+                                                        err in
+                                                        if err != nil{
+                                                            print("there is some error")
+                                                        }else{
+                                                            print("successfully written")
+                                                        }
+                                                    }
+                                                DispatchQueue.main.async {
+                                                    completionHandler("complete", nil)
+                                                }
+                                                break;
+                                                            
+                                                }
                                         }
-                                                    
-                                        }
+                                    }
                                 }
                             }
                         }
@@ -161,6 +175,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
+        
                 
     }
     func initializeCanvasevents(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
@@ -230,7 +245,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     
-    func getData(){
+    func getData(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         let dname = user.id ?? email
         let userref = self.db.collection("users").document(dname)
         userref.getDocument{(document, error) in
@@ -249,7 +264,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                             self.user.getdata(db: self.db, dates: dates){
                                 response, error in
                                 if response != nil{
-                                    self.tableview.reloadData()
+                                    DispatchQueue.main.async {
+                                        completionHandler("complete", nil)
+                                    }
                                 }
                             }
                         }
@@ -262,7 +279,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.user.getdata(db: self.db, dates: dates){
                         response, error in
                         if response != nil{
-                            self.tableview.reloadData()
+                            DispatchQueue.main.async {
+                                completionHandler("complete", nil)
+                            }
                         }
                     }
                 }
@@ -279,7 +298,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                             self.initializeCanvasevents(){
                                 response, error in
                                 if response != nil{
-                                    self.tableview.reloadData()
+                                    //self.tableview.reloadData()
                                     var allstring:[String] = []
                                     for i in self.activities{
                                         let tempdatestring = self.dateFormatter.string(from: i.key)
@@ -302,6 +321,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                     print("successfully written")
                                                 }
                                             }
+                                        DispatchQueue.main.async {
+                                            completionHandler("complete", nil)
+                                        }
                                                     
                                         }
                                     }
@@ -317,11 +339,12 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                 print("there is some error")
                             }else{
                                 print("successfully written")
+                                DispatchQueue.main.async {
+                                    completionHandler("complete", nil)
+                                }
                         }
                     }
                 }
-                
-               
             }
         }
     }
@@ -338,13 +361,15 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             user.getid(isCanvas: isfromCanvas, email: email, token: token, canvasapi: canvasdataapi){
                 response, error in
                 if(response != nil){
-                    self.getData()
+                    self.getData(){
+                        getdataresponse, error in
+                        if getdataresponse != nil{
+                             self.tableview.reloadData()
+                        }
+                    }
                 }
             }
         }
-        
-        
-       
         AddButton.SetAddButtonUI()
         // Do any additional setup after loading the view.
     }

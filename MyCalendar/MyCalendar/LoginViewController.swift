@@ -43,7 +43,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
                         calendarVC.email = email
-                        calendarVC.isfromCanvas = false
+                       // calendarVC.isfromCanvas = false
                         self.present(calendarVC, animated: true, completion: nil)
                     }else{
                         self.Success.text = "Unmatch Email & Password"

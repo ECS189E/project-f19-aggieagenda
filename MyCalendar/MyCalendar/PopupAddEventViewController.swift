@@ -60,7 +60,11 @@ class PopupAddEventViewController: UIViewController {
         let date = datePicker.date
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
-        guard let title = EventTitle.text else { return }
+        var title = EventTitle.text ?? ""
+        if title == ""{
+            //should have error handling here
+            title = "event"
+        }
         for data in activities{
             let newdateString = dateFormatter.string(from: data.key)
             if newdateString == dateString{

@@ -58,7 +58,6 @@ class User {
                     self.isfromCanvas = false
                     self.id = email
                     self.token = ""
-                    print(self.id)
                     DispatchQueue.main.async{
                         completionHandler("response", nil)
                     }

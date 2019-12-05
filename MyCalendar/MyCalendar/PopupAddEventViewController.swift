@@ -34,6 +34,8 @@ class PopupAddEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         AddView.layer.cornerRadius = 10
+        let currentDate = Date()
+        datePicker.minimumDate = currentDate
      
         let userref = self.db?.collection("users").document(user?.id ?? "")
         userref?.getDocument{(document, error) in

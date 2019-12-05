@@ -5,7 +5,6 @@
 //  Created by Yan Yubing on 11/20/19.
 //  Copyright © 2019 Yan Yubing. All rights reserved.
 //
-
 import UIKit
 import Firebase
 import FirebaseFirestore
@@ -387,7 +386,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }else if segue.identifier == "toEvent"{
             let VC = segue.destination as! EventViewController
-            VC.event = activities[selectdateindex].value[selecteventindex]
+            VC.oneevent = activities[selectdateindex].value[selecteventindex]
         }
     }
 }

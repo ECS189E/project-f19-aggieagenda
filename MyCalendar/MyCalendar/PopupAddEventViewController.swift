@@ -16,6 +16,7 @@ protocol MyProtocol: class
 class PopupAddEventViewController: UIViewController {
 
     
+    @IBOutlet weak var AddView: UIView!
     @IBOutlet weak var EventTitle: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var AddEventButton: UIButton!
@@ -31,6 +32,8 @@ class PopupAddEventViewController: UIViewController {
     weak var mDelegate:MyProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
+        AddView.layer.cornerRadius = 10
+     
         let userref = self.db?.collection("users").document(user?.id ?? "")
         userref?.getDocument{(document, error) in
             if let document = document, document.exists{

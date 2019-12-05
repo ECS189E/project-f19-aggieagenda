@@ -7,29 +7,142 @@
 //
 
 import UIKit
+import Firebase
+
+//protocol MyProtocol: class
+//{
+//    func senduserdataToPreviousVC(newuser:User, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void)
+//}
+
 
 class EventViewController: UIViewController {
     
-    var event:event?
-
+    @IBOutlet weak var TimerView: UIView!
+    @IBOutlet weak var EventTitle: UILabel!
+    @IBOutlet weak var EventDate: UILabel!
+    @IBOutlet weak var EventSubject: UILabel!
+    
+    @IBOutlet weak var HrInput: UITextField!
+    @IBOutlet weak var MinInput: UITextField!
+    @IBOutlet weak var SecInput: UITextField!
+    
+    
+    @IBOutlet weak var CountDownTimer: UILabel!
+    
+    @IBOutlet weak var StartButton: UIButton!
+    @IBOutlet weak var StopButton: UIButton!
+    
+    
+    var oneevent:event?
+    var timeForTask = 0
+    var seconds = 60
+    var timer = Timer ()
+    var isTimerRunning = false
+    var resumeTapped = false
+    var chosenTimeInterval: Int = 0
+    var tapGesture = UITapGestureRecognizer()
+    
     override func viewDidLoad() {
-        print(event?.title)
-        print(event?.isCanvasevent)
-        print(event?.subject)
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+    
+        TimerView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        TimerView.layer.shadowOpacity = 0.25
+        TimerView.layer.cornerRadius = 20
+        TimerView.layer.shadowColor = UIColor.red.cgColor
+        TimerView.layer.masksToBounds = false
+        TimerView.layer.shadowRadius = 10
+        TimerView.layer.shadowOffset = CGSize(width:4,height:10)
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+        EventTitle.text = oneevent?.title
+        EventDate.text = oneevent?.date
+        EventSubject.text = oneevent?.subject
+        let hr:Int = Int(HrInput.text ?? "0") ?? 0
+        let min:Int = Int(MinInput.text ?? "0") ?? 0
+        let sec:Int = Int(SecInput.text ?? "0") ?? 0
+        chosenTimeInterval = sec + 60 * min + 3600 * hr
+        seconds = chosenTimeInterval
+        CountDownTimer.text = timeString(time: Double(chosenTimeInterval))
     }
     
-
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }*/
+    func runTimer() {
+        if self.resumeTapped == false {
+            seconds = chosenTimeInterval
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(EventViewController.updateTimer)), userInfo: nil, repeats: true)
+            isTimerRunning = true
+            self.StopButton.isEnabled = true
+        } else {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(EventViewController.updateTimer)), userInfo: nil, repeats: true)
+            isTimerRunning = true
+            self.StopButton.isEnabled = true
+        }
+       
+//        self.StartButton.isEnabled = true
+    }
     
-
+    @objc func updateTimer(){
+        if seconds < 1 {
+            timer.invalidate()
+            isTimerRunning = false
+        } else {
+            seconds -= 1
+            CountDownTimer.text = timeString(time: TimeInterval(seconds))
+        }
+//        if seconds == 0{
+//            self.StartButton.isEnabled = true
+//        }
+    }
+    
+    func timeString(time:TimeInterval) -> String {
+        let Hours = Int(time) / 3600
+        let Minutes = Int(time) / 60 % 60
+        let Seconds = Int(time) % 60
+        return String(format: "%02i:%02i:%02i", Hours, Minutes, Seconds)
+    }
+    
+ 
+    @IBAction func StartButtonTapped(_ sender: Any) {
+        if isTimerRunning == false {
+            let hr:Int = Int(HrInput.text ?? "0") ?? 0
+            let min:Int = Int(MinInput.text ?? "0") ?? 0
+            let sec:Int = Int(SecInput.text ?? "0") ?? 0
+            print(hr)
+            print(sec)
+            chosenTimeInterval = sec + 60 * min + 3600 * hr
+            seconds = chosenTimeInterval
+            runTimer()
+             CountDownTimer.text = timeString(time: Double(chosenTimeInterval))
+            print("here")
+//            self.StartButton.isEnabled = false
+        }else{
+            
+        }
+    }
+    
+    @IBAction func StopButtonTapped(_ sender: UIButton) {
+        if self.resumeTapped == false {
+            timer.invalidate()
+            self.resumeTapped = true
+        } else {
+            runTimer()
+            self.resumeTapped = false
+        }
+    }
+    
+    //More adjustmet is needed to deal with the reset button. We will need to do this!!
+    
+//    @IBAction func ResetButtonTapped(_ sender: UIButton) {
+//        timer.invalidate()
+//        seconds = chosenTimeInterval
+//        CountDownTimer.text = timeString(time: TimeInterval(seconds))
+//        isTimerRunning = false
+//        self.StopButton.isEnabled = false
+//    }
+    @IBAction func backPressed(_ sender: UIButton) {
+           dismiss(animated: true)
+       }
 }

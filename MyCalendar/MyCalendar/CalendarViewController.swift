@@ -12,6 +12,7 @@ import FirebaseFirestore
 class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MyProtocol{
     func senduserdataToPreviousVC(newuser: User, completionHandler: @escaping (String?, String?) -> Void) {
         self.user = newuser
+        self.email = newuser.id ?? ""
         self.tableview.reloadData()
         DispatchQueue.main.async{
             completionHandler("response", nil)
@@ -387,6 +388,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }else if segue.identifier == "toEvent"{
             let VC = segue.destination as! EventViewController
             VC.oneevent = activities[selectdateindex].value[selecteventindex]
+            VC.email = user.id
         }
     }
 }

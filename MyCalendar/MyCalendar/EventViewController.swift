@@ -41,6 +41,8 @@ class EventViewController: UIViewController {
     var resumeTapped = false
     var chosenTimeInterval: Int = 0
     var tapGesture = UITapGestureRecognizer()
+    var token:String? = nil
+    var email:String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,4 +147,10 @@ class EventViewController: UIViewController {
     @IBAction func backPressed(_ sender: UIButton) {
            dismiss(animated: true)
        }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backToEvent"{
+            let vc = segue.destination as! CalendarViewController
+            vc.email = email ?? ""
+        }
+    }
 }

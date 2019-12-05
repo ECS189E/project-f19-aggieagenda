@@ -30,6 +30,7 @@ class PopupAddEventViewController: UIViewController {
     var datestrings:[String] = []
     var tempactivities = [(key: Date, value: [event])] ()
     weak var mDelegate:MyProtocol?
+    //var email:String? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         AddView.layer.cornerRadius = 10

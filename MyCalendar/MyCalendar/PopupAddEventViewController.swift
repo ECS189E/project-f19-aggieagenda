@@ -75,7 +75,7 @@ class PopupAddEventViewController: UIViewController {
             }
         }
         if !check{
-            let tempevent = event.init(title, dateString, false)
+            let tempevent = event.init(title, dateString, false, "")
             tempevents.append(tempevent)
             datestrings.append(dateString)
             self.db?.collection("users").document(self.user?.id ?? "").setData(["dates":datestrings]){
@@ -85,7 +85,7 @@ class PopupAddEventViewController: UIViewController {
                     }else{
                         print("successfully written")
                     }
-                    self.db?.collection("users").document(self.user?.id ?? "").collection(dateString).document(title).setData(["isCanvas":false]){
+                self.db?.collection("users").document(self.user?.id ?? "").collection(dateString).document(title).setData(["isCanvas":false, "Subject":""]){
                         err in
                             if err != nil{
                                 print("there is some error")

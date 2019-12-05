@@ -12,11 +12,19 @@ class event {
     var title:String
     var isCanvasevent: Bool
     var date:String
+    var discription:String
+    var isDone:Bool
+    var subject:String
+    var memo:String
     
-    init(_ dataString: String, _ dateString: String, _ isCanvas: Bool){
+    init(_ dataString: String, _ dateString: String, _ isCanvas: Bool, _ course: String){
         title = dataString
         isCanvasevent = isCanvas
         date = dateString
+        discription = ""
+        isDone = false
+        subject = course
+        memo = ""
     }
 }
 
@@ -73,7 +81,9 @@ class User {
                 if let document = document, !document.isEmpty{
                     for j in document.documents{
                         let iscanvas = (j.data()["isCanvas"] as? Bool) ?? false
-                        let tempevent = event.init(j.documentID, date, iscanvas)
+                        let subject = (j.data()["Subject"] as? String) ?? ""
+                        // need modify
+                        let tempevent = event.init(j.documentID, date, iscanvas, subject)
                         tempevents.append(tempevent)
                     }
                     temp.append((key: formatdate, value: tempevents))

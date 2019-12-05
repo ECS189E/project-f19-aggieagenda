@@ -44,34 +44,69 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         self.refreshControl.endRefreshing()
         self.activityIndicatorView.stopAnimating()
     }
-    func initializeCanvasevents() {
+    func initializeCanvasevents(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
         var temp = [Date:[event]] ()
         var check:Bool = false
-        for dic in self.jsondata{
-            check = false
-            var temptitles:[event] = []
-            guard let date = dic["all_day_date"] as? String else { return }
-            guard let title = dic["title"] as? String else { return }
-            let tempevent = event.init(title, date, true)
-            guard let formatdate = dateFormatter.date(from: date) else {return}
-            for i in temp{
-                if i.key == formatdate{
-                    temptitles = i.value
-                    tempevent.isCanvasevent = true
-                    temptitles.append(tempevent)
-                    temp.updateValue(temptitles, forKey: formatdate)
-                    check = true
+        let dispatchGroup = DispatchGroup.init()
+        let dispatchQueue = DispatchQueue(label: "taskQueue")
+        let dispatchSemaphore = DispatchSemaphore(value: 0)
+        dispatchQueue.async{
+            for dic in self.jsondata{
+                //print(dic)
+                dispatchGroup.enter()
+                check = false
+                var temptitles:[event] = []
+                guard let date = dic["all_day_date"] as? String else { return }
+                guard let title = dic["title"] as? String else { return }
+                guard let assignment = dic["assignment"] as? [String:Any] else{
+                    return }
+                guard let courseid = assignment["course_id"] as? Int else{
+                    return
                 }
-            }
-            if !check{
-                tempevent.isCanvasevent = true
-                temptitles.append(tempevent)
-                temp.updateValue(temptitles, forKey: formatdate)
+                let courseidstring = String(courseid)
+                self.canvasdataapi.getCourse(token: self.token, courseid: courseidstring){
+                    response, error in
+                    if response != nil{
+                        //print(self.canvasdataapi.subject)
+                        let tempevent = event.init(title, date, true, self.canvasdataapi.subject)
+                        guard let formatdate = self.dateFormatter.date(from: date) else {return}
+                        for i in temp{
+                            if i.key == formatdate{
+                                temptitles = i.value
+                                tempevent.isCanvasevent = true
+                                temptitles.append(tempevent)
+                                temp.updateValue(temptitles, forKey: formatdate)
+                                check = true
+                            }
+                        }
+                        if !check{
+                            tempevent.isCanvasevent = true
+                            temptitles.append(tempevent)
+                            temp.updateValue(temptitles, forKey: formatdate)
+                        }
+                        self.activities = temp.sorted{$0.key < $1.key}
+                        self.user.user = self.activities
+                        dispatchSemaphore.signal()
+                        dispatchGroup.leave()
+                    }
+                    if error != nil{
+                        print("there is some error!")
+                        DispatchQueue.main.async {
+                            completionHandler(nil, "error")
+                        }
+                    }
+                }
+                dispatchSemaphore.wait()
             }
         }
+        dispatchGroup.notify(queue: dispatchQueue){
+            DispatchQueue.main.async {
+                completionHandler("complete", nil)
+            }
+            
+        }
         
-        self.activities = temp.sorted{$0.key < $1.key}
-        user.user = self.activities
+        
     }
 
     
@@ -82,7 +117,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let userref = self.db.collection("users").document(dname)
         userref.getDocument{(document, error) in
             if let document = document, document.exists{
-                print(document.documentID)
+                //print(document.documentID)
                 let temp = (document.data()?["dates"] as? NSArray) as Array?
                 guard let dates = temp else{
                     return
@@ -100,14 +135,25 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     response, error in
                     if(response != nil){
                         self.jsondata = self.canvasdataapi.upcomingeventsdata
-                        self.initializeCanvasevents()
-                        self.tableview.reloadData()
-                        var allstring:[String] = []
-                        for i in self.activities{
-                            let tempdatestring = self.dateFormatter.string(from: i.key)
-                            allstring.append(tempdatestring)
-                            for j in i.value{
-                                self.db.collection("users").document(dname).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent]){
+                        self.initializeCanvasevents(){
+                            response, error in
+                            if response != nil{
+                                self.tableview.reloadData()
+                                var allstring:[String] = []
+                                for i in self.activities{
+                                    let tempdatestring = self.dateFormatter.string(from: i.key)
+                                    allstring.append(tempdatestring)
+                                    for j in i.value{
+                                        self.db.collection("users").document(dname).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
+                                                err in
+                                                    if err != nil{
+                                                        print("there is some error")
+                                                    }else{
+                                                        print("successfully written")
+                                                }
+                                            }
+                                    }
+                                    self.db.collection("users").document(dname).setData(["dates":allstring]){
                                         err in
                                             if err != nil{
                                                 print("there is some error")
@@ -115,16 +161,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                 print("successfully written")
                                         }
                                     }
-                            }
-                            self.db.collection("users").document(dname).setData(["dates":allstring]){
-                                err in
-                                    if err != nil{
-                                        print("there is some error")
-                                    }else{
-                                        print("successfully written")
                                 }
                             }
                         }
+                        
                     }
                 }
             }

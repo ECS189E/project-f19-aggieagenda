@@ -14,6 +14,8 @@ class EventViewController: UIViewController {
 
     override func viewDidLoad() {
         print(event?.title)
+        print(event?.isCanvasevent)
+        print(event?.subject)
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.

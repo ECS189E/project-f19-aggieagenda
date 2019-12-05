@@ -38,8 +38,8 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
     
     var canvasdataapi = Api.init()
        var jsondata:[[String:Any]] = [["":""]]
-       var email:String! = ""
-    var password:String! = ""
+       var email:String = ""
+    var password:String = ""
     var token:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,7 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
             let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
             calendarVC.token = token
             calendarVC.isfromCanvas = true
+            calendarVC.email = email
             self.present(calendarVC, animated: true, completion: nil)
        
     }

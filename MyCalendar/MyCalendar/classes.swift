@@ -32,16 +32,19 @@ class User {
     var user = [(key: Date, value: [event])] ()
     var id: String? = nil
     var username: String? = nil
+    var token:String? = nil
     
-    func getid(isCanvas: Bool, token: String, canvasapi: Api, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
+    func getid(isCanvas: Bool, email: String, token: String, canvasapi: Api, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         if(!isCanvas){
-            self.id = token
+            self.id = email
+            self.token = ""
             completionHandler("response", nil)
         }else{
             canvasapi.getUserinformation(token:token){
                 response, error in
                 if(response != nil){
-                    self.id = String(canvasapi.id)
+                    self.id = email
+                    self.token = token
                     self.username = canvasapi.username
                     DispatchQueue.main.async{
                         completionHandler("response", nil)

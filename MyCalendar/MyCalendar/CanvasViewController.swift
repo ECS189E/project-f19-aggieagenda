@@ -54,7 +54,8 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
      
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
-        calendarVC.token = token
+            calendarVC.token = token
+            calendarVC.isfromCanvas = true
             self.present(calendarVC, animated: true, completion: nil)
        
     }

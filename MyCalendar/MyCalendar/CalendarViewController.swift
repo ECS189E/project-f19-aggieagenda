@@ -35,6 +35,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectdateindex:Int = 0
     var selecteventindex:Int = 0
     let dateFormatter = DateFormatter()
+    var isfromCanvas:Bool = false
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var AddButton: UIButton!
@@ -112,7 +113,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func getData(){
         
-        let dname = user.id ?? email
+        let dname = email
         //print(dname)
         let userref = self.db.collection("users").document(dname)
         userref.getDocument{(document, error) in
@@ -122,7 +123,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 guard let dates = temp else{
                     return
                 }
-                
+                self.user.token = (document.data()?["token"] as? String ?? "")
+                self.token = self.user.token ?? ""
                 self.user.getdata(db: self.db, dates: dates){
                     response, error in
                     if response != nil{
@@ -130,43 +132,57 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     }
                 }
             }else{
-                
-                self.canvasdataapi.ApiCall(token:self.token){
-                    response, error in
-                    if(response != nil){
-                        self.jsondata = self.canvasdataapi.upcomingeventsdata
-                        self.initializeCanvasevents(){
-                            response, error in
-                            if response != nil{
-                                self.tableview.reloadData()
-                                var allstring:[String] = []
-                                for i in self.activities{
-                                    let tempdatestring = self.dateFormatter.string(from: i.key)
-                                    allstring.append(tempdatestring)
-                                    for j in i.value{
-                                        self.db.collection("users").document(dname).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
-                                                err in
-                                                    if err != nil{
-                                                        print("there is some error")
-                                                    }else{
-                                                        print("successfully written")
-                                                }
-                                            }
-                                    }
-                                    self.db.collection("users").document(dname).setData(["dates":allstring]){
-                                        err in
-                                            if err != nil{
-                                                print("there is some error")
-                                            }else{
-                                                print("successfully written")
-                                        }
-                                    }
-                                }
-                            }
+                if(self.isfromCanvas){
+                    self.canvasdataapi.ApiCall(token:self.token){
+                                       response, error in
+                                       if(response != nil){
+                                           self.jsondata = self.canvasdataapi.upcomingeventsdata
+                                           self.initializeCanvasevents(){
+                                               response, error in
+                                               if response != nil{
+                                                   self.tableview.reloadData()
+                                                   var allstring:[String] = []
+                                                   for i in self.activities{
+                                                       let tempdatestring = self.dateFormatter.string(from: i.key)
+                                                       allstring.append(tempdatestring)
+                                                       for j in i.value{
+                                                           self.db.collection("users").document(dname).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
+                                                                   err in
+                                                                       if err != nil{
+                                                                           print("there is some error")
+                                                                       }else{
+                                                                           print("successfully written")
+                                                                   }
+                                                               }
+                                                       }
+                                                    self.db.collection("users").document(dname).setData(["dates":allstring, "token":self.token, "isCanvasUser":true]){
+                                                           err in
+                                                               if err != nil{
+                                                                   print("there is some error")
+                                                               }else{
+                                                                   print("successfully written")
+                                                           }
+                                                       }
+                                                    
+                                                   }
+                                               }
+                                           }
+                                           
+                                       }
+                                   }
+                    
+                }else{
+                    self.db.collection("users").document(dname).setData(["dates":"", "token":self.token, "isCanvasUser":false]){
+                        err in
+                            if err != nil{
+                                print("there is some error")
+                            }else{
+                                print("successfully written")
                         }
-                        
                     }
                 }
+                
+               
             }
         }
     }
@@ -179,7 +195,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         refreshControl.addTarget(self, action: #selector(refreshcalender(_:)), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Getting calender data...")
         self.tableview.refreshControl = refreshControl
-        user.getid(isCanvas: true, token: token, canvasapi: canvasdataapi){
+        user.getid(isCanvas: isfromCanvas, email: email, token: token, canvasapi: canvasdataapi){
             response, error in
             if(response != nil){
                 self.getData()
@@ -244,7 +260,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 userref.delete(){
                     error in
                     if error != nil{
-                        print (error)
+                        print (error as Any)
                     }
                 }
                 var temp = self.activities[indexPath.section].value

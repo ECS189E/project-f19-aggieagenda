@@ -46,9 +46,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc private func refreshcalender(_ sender: Any){
         getData(){response, error in
             if response != nil{
-                self.tableview.reloadData()
+                //self.tableview.reloadData()
                 self.refreshControl.endRefreshing()
                 self.activityIndicatorView.stopAnimating()
+                self.tableview.reloadData()
             }
         }
        

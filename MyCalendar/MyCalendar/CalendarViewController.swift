@@ -413,11 +413,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                      self.tableview.deleteRows(at: [indexPath], with: .fade)
                  }else{
                     let userref = self.db.collection("users").document(self.user.id ?? "")
+                    var datestrings:[String] = []
                     userref.getDocument{(document, error) in
                         if let document = document, document.exists{
                             print(document.documentID)
                             let temp = (document.data()?["dates"] as? NSArray) as Array?
-                            var datestrings:[String] = []
                             guard let dates = temp else{
                                 return
                             }
@@ -428,7 +428,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                 }
                                 
                             }
-                            self.db.collection("users").document(self.user.id ?? "").setData(["dates":datestrings]){
+                            self.db.collection("users").document(self.user.id ?? "").updateData(["dates":datestrings]){
                             err in
                                 if err != nil{
                                     print("there is some error")
@@ -438,8 +438,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                         }
                     }
                     self.activities.remove(at: indexPath.section)
-                    self.user.user = self.activities
-                    self.tableview.deleteSections([indexPath.section], with: .fade)
+                        self.user.getdata(db: self.db, dates: datestrings as Array<AnyObject>){
+                            response, error in
+                            if response != nil{
+                                self.tableview.deleteSections([indexPath.section], with: .fade)
+                            }
+                        }
+                    //self.user.user = self.activities
+                    //self.tableview.deleteSections([indexPath.section], with: .fade)
                     
                      //self.tableview.reloadData()
                  }

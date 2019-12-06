@@ -77,36 +77,55 @@ class User {
             }
             return
         }
-        //maybe use a dispatch queue group for optimizing here
-        for (index, i) in dates.enumerated(){
-            let date = String(_cocoaString: i)
-            guard let formatdate = dateFormatter.date(from: date) else {
-                DispatchQueue.main.async{
-                    completionHandler(nil, "error")
-                }
-                return}
-            var tempevents = [event]()
-            let userref = db.collection("users").document(dname).collection(date)
-            userref.getDocuments{(document, error) in
-                if let document = document, !document.isEmpty{
-                    for j in document.documents{
-                        let iscanvas = (j.data()["isCanvas"] as? Bool) ?? false
-                        let subject = (j.data()["Subject"] as? String) ?? ""
-                        // need modify
-                        let tempevent = event.init(j.documentID, date, iscanvas, subject)
-                        tempevents.append(tempevent)
-                    }
-                    temp.append((key: formatdate, value: tempevents))
-                    self.user = temp
-                }
-                if index == dates.count - 1 {
+        let dispatchGroup = DispatchGroup.init()
+        let dispatchQueue = DispatchQueue(label: "taskQueue")
+        let dispatchSemaphore = DispatchSemaphore(value: 0)
+        dispatchQueue.async{
+            for i in dates{
+                dispatchGroup.enter()
+                let date = String(_cocoaString: i)
+                guard let formatdate = dateFormatter.date(from: date) else {
                     DispatchQueue.main.async{
-                        completionHandler("response", nil)
+                        completionHandler(nil, "error")
                     }
+                    return}
+                let checkdate = Date.checkdate
+                var tempevents = [event]()
+                if checkdate < formatdate{
+                    let userref = db.collection("users").document(dname).collection(date)
+                    userref.getDocuments{(document, error) in
+                        if let document = document, !document.isEmpty{
+                            for j in document.documents{
+                                let iscanvas = (j.data()["isCanvas"] as? Bool) ?? false
+                                let subject = (j.data()["Subject"] as? String) ?? ""
+                                // need modify
+                                let tempevent = event.init(j.documentID, date, iscanvas, subject)
+                                tempevents.append(tempevent)
+                            }
+                            temp.append((key: formatdate, value: tempevents))
+                            self.user = temp
+                            dispatchSemaphore.signal()
+                            dispatchGroup.leave()
+                        }else{
+                            DispatchQueue.main.async {
+                                completionHandler(nil, "error")
+                            }
+                        }
+                    }
+                }else{
+                    continue
                 }
+                dispatchSemaphore.wait()
             }
-        
         }
+        dispatchGroup.notify(queue: dispatchQueue){
+            DispatchQueue.main.async {
+                completionHandler("complete", nil)
+            }
+            
+        }
+        //maybe use a dispatch queue group for optimizing here
+        
         
     }
 }

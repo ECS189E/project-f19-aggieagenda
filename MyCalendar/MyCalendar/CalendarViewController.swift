@@ -11,6 +11,7 @@ import FirebaseFirestore
 var vSpinner : UIView?
 
 extension UIViewController {
+    //Show activity indicator when loading
     func showSpinner(onView : UIView) {
         let spinnerView = UIView.init(frame: onView.bounds)
         spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
@@ -25,7 +26,7 @@ extension UIViewController {
         
         vSpinner = spinnerView
     }
-    
+    //dismiss the activity indicator once succeessfully loaded
     func removeSpinner() {
         DispatchQueue.main.async {
             vSpinner?.removeFromSuperview()
@@ -34,6 +35,7 @@ extension UIViewController {
     }
 }
 
+//Used for auto deleting events based on date (3-day auto expire)
 extension Date {
     static var yesterday: Date { return Date().dayBefore }
     static var tomorrow:  Date { return Date().dayAfter }
@@ -51,6 +53,7 @@ extension Date {
 
 
 class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MyProtocol{
+    //passing user data from other navigated screen to the original and reload list
     func senduserdataToPreviousVC(newuser: User, completionHandler: @escaping (String?, String?) -> Void) {
         self.user = newuser
         self.email = newuser.id ?? ""
@@ -86,6 +89,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var AddButton: UIButton!
     
+    //handle refresh event list
     @objc private func refreshcalender(_ sender: Any){
         getData(){response, error in
             if response != nil{
@@ -97,6 +101,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
     }
+    //check whether Canvas has updated assignments
     func checkCanvasUpdates(completionHandler: @escaping (_ Response: String?, _ Error: String?) -> Void) {
         let userref = self.db.collection("users").document(email)
         userref.getDocument{(document, error) in
@@ -219,9 +224,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        
-        
     }
+    //initialze canvas fecthed event format
     func initializeCanvasevents(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
         var temp = [Date:[event]] ()
         var check:Bool = false
@@ -288,7 +292,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
-    
+    //fetch date from firestore
+    //load both Canvas data and user customized event
+    //check if there is a Canvas update: if so, compare the assignment with the stored canvas event
+    //if matched, skip, otherwise store the new event
     func getData(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         let dname = user.id ?? email
         let userref = self.db.collection("users").document(dname)
@@ -425,6 +432,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
+    //Tableview for displaying events. including swipe to delete, select to segue
+    //separated by sections of event date sorted by time
+    //each section contains the events
     func numberOfSections(in tableView: UITableView) -> Int {
         self.activities = user.user.sorted{$0.key < $1.key}
         //print(activities)
@@ -463,6 +473,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             return true
         }
     }
+    
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete"){(contextualAction, view, actionPerformed: @escaping (Bool) -> Void) in

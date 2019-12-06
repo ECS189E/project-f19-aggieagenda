@@ -82,14 +82,17 @@ class ViewController: UIViewController,UITextFieldDelegate {
                     if user != nil{
                         print("here")
                     }else{
+                        print("now here")
                         if let i = email.firstIndex(of: "@"){
                             if  email[i ..< email.endIndex] == "@ucdavis.edu"{
+                                print("here1")
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let canvasVC = storyboard.instantiateViewController(identifier: "Canvas") as! CanvasViewController
                                 canvasVC.email = email
                                 canvasVC.isfromcanvas = true
                                 self.present(canvasVC, animated: true, completion: nil)
                             }else{
+                                print("here2")
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
                                 calendarVC.email = email

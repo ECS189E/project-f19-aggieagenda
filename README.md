@@ -1,5 +1,8 @@
 # Group 19 Final Project
+
 Trello board: https://trello.com/b/XqyKj05g/final-project
+
+Link to the project folder: https://github.com/ECS189E/project-f19-helloworld/tree/master/MyCalendar
 
 ## Team Member:
 
@@ -9,8 +12,9 @@ Zhiwei Zhang (github handler:jthn46)
 
 Youyuan Xing (github handler:yxingx)
 
-# Project title: aggieCalendar
-A calendar that will allow user to get their assignment due using UC-Davis Canvas, also would be able to let user to add event and using count down timer.
+# Project title: Aggie-genda
+
+A canlendar agenda app for users to add/delete event and use countdown timer to focus, and, especially for UC Davis student users, load the assignments from canvas.
 
 # Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.

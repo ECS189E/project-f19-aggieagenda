@@ -22,7 +22,7 @@ You will need the following pod to run the program
  pod 'Firebase/Auth'\
  pod 'OAuthSwift', '~> 2.0.0'\
  pod 'Firebase/Firestore'\
- pod 'Firebase/Database'\
+ pod 'Firebase/Database'
  
  # Program flow:
  User would be able to register through email, the app will pop up a Canvas page if user used UC-Davis email. So the user would be able to access their assignment using canvas token and get the due date back to the app. The Canvas page will not show up if user used non-UCD email.

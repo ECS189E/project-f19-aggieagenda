@@ -25,14 +25,11 @@ class Api{
         self.username = ""
         self.subject = ""
     }
-<<<<<<< HEAD
     
     
     
-=======
     // Get the information of upcoming events from a specific user
     // Convert the json response into array/dictionary
->>>>>>> c51ef06497e3048864b5ac2e4ba88f8abcd7ff08
     func ApiCall(token:String, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         
         let headers = [
@@ -58,7 +55,6 @@ class Api{
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
                 print("herr")
-                print(error)
             } else {
                 do{
                     if let dataResponse = data {
@@ -132,14 +128,9 @@ class Api{
                         DispatchQueue.main.async {
                             completionHandler("complete", nil)
                         }
-<<<<<<< HEAD
+
                         }}catch{
                             print("no")
-                    }
-=======
-                    }}catch{
-                        print("no")
->>>>>>> c51ef06497e3048864b5ac2e4ba88f8abcd7ff08
                 }
             }
         })
@@ -191,14 +182,9 @@ class Api{
                         DispatchQueue.main.async {
                             completionHandler("complete", nil)
                         }
-<<<<<<< HEAD
-                        }}catch{
-                            print("no")
-                    }
-=======
+
                     }}catch{
                         print("no")
->>>>>>> c51ef06497e3048864b5ac2e4ba88f8abcd7ff08
                 }
             }
         })

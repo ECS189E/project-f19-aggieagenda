@@ -33,3 +33,18 @@ You will need the following pod to run the program\
  
  After sucessfully login, user can also add their own events on Calendar. In addition, the app also provides count down timer if user clicked on the event, so the user can set up the timer themself and count it down.
  
+ # Contribution:
+ 
+ Yubing Yan: Api.swift, classes.swift, LoginViewController.swift, CalendarViewController.swift, EventTableViewController,EventViewController.swift, PopupEventViewController.swift,UIButtonExtension.swift
+ 
+ Zhiwei Zhang: Api.swift, classes.swift, LoginViewController.swift, CalendarViewController.swift, EventTableViewController,EventViewController.swift
+ 
+ Youyuan Xing: LoginViewController.swift, CanvasViewController.swift,CanvasTableViewCell.swift
+ 
+ Specifically:
+ 
+ Yubing Yan: Handle Firebase email authentication, make API call to canvas and parse response, design/adjust UI views, switch between sign up and sign in, handle add event feature & load into event list, detail of each event, create count-down timer
+ 
+ Zhiwei Zhang: Handle Firestore, make API call to canvas and parse response, create event cell display, delete/refresh event, activity indicator, auto layout
+ 
+ Youyuan Xing: Handle user sign up, check whether user has UCD email, create get token guide, get&pass user token, redirect to a pop-up Canvas webpage, sign out feature

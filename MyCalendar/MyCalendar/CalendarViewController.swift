@@ -147,17 +147,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                     completionHandler("complete", nil)
                                 }
                                 return
-                            }
-                            for i in newcanvas {
-                                var check:Bool = false
-                                for j in oldcanvas {
-                                    if i == j{
-                                        check = true
-                                    }
-                                }
-                                
-                                if !check{
-                                    self.initializeCanvasevents(){
+                            }else{
+                                self.initializeCanvasevents(){
                                         response, error in
                                         if response != nil{
                                             for k in newcanvas{
@@ -204,16 +195,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                         print("successfully written")
                                                     }
                                                 }
-                                                DispatchQueue.main.async {
-                                                    completionHandler("complete", nil)
-                                                }
-                                                break;
                                                 
                                             }
                                         }
+                                        DispatchQueue.main.async {
+                                            completionHandler("complete", nil)
+                                        }
                                     }
                                 }
-                            }
                         }
                     }
                 }

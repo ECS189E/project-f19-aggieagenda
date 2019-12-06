@@ -41,6 +41,7 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
+    //redirect user to Canvas page
     func showSafariVC(for url: String){
         guard let url = URL(string: url)else{
             return
@@ -51,6 +52,7 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
+    //set up image instruction for getting token
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return(steps.count)
     }

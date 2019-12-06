@@ -53,6 +53,7 @@ class PopupAddEventViewController: UIViewController {
         }
     }
     
+    //add existing data from firebase
     func addData(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
         var check:Bool = false
         var tempevents:[event] = []
@@ -108,6 +109,7 @@ class PopupAddEventViewController: UIViewController {
         }
     }
     
+    //Enable user to add the event by themself
     @IBAction func addEvent(_ sender: UIButton) {
         if EventTitle.text == ""{
             EventTitle.layer.borderColor = UIColor.red.cgColor

@@ -48,6 +48,7 @@ class Api{
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
                 print("herr")
+                print(error)
             } else {
                 do{
                 if let dataResponse = data {
@@ -97,6 +98,7 @@ class Api{
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if (error != nil) {
                     print("herr")
+                    print(error)
                 } else {
                     do{
                     if let dataResponse = data {
@@ -161,6 +163,7 @@ class Api{
             let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
                 if (error != nil) {
                     print("herr")
+                    print(error)
                 } else {
                     do{
                     if let dataResponse = data {

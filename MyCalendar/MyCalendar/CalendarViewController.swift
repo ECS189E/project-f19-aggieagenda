@@ -11,6 +11,7 @@ import FirebaseFirestore
 var vSpinner : UIView?
 
 extension UIViewController {
+    //Show activity indicator when loading
     func showSpinner(onView : UIView) {
         let spinnerView = UIView.init(frame: onView.bounds)
         spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
@@ -25,7 +26,7 @@ extension UIViewController {
         
         vSpinner = spinnerView
     }
-    
+    //dismiss the activity indicator once succeessfully loaded
     func removeSpinner() {
         DispatchQueue.main.async {
             vSpinner?.removeFromSuperview()
@@ -34,6 +35,7 @@ extension UIViewController {
     }
 }
 
+//Used for auto deleting events based on date (3-day auto expire)
 extension Date {
     static var yesterday: Date { return Date().dayBefore }
     static var tomorrow:  Date { return Date().dayAfter }
@@ -51,6 +53,7 @@ extension Date {
 
 
 class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MyProtocol{
+    //passing user data from other navigated screen to the original and reload list
     func senduserdataToPreviousVC(newuser: User, completionHandler: @escaping (String?, String?) -> Void) {
         self.user = newuser
         self.email = newuser.id ?? ""
@@ -86,6 +89,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var AddButton: UIButton!
     
+    //handle refresh event list
     @objc private func refreshcalender(_ sender: Any){
         getData(){response, error in
             if response != nil{
@@ -95,8 +99,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.tableview.reloadData()
             }
         }
-       
+        
     }
+    //check whether Canvas has updated assignments
     func checkCanvasUpdates(completionHandler: @escaping (_ Response: String?, _ Error: String?) -> Void) {
         let userref = self.db.collection("users").document(email)
         userref.getDocument{(document, error) in
@@ -110,7 +115,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                         var newcanvas:[String] = []
                         var datestrings:[String] = []
                         for dic in self.jsondata{
-                        //print(dic)
+                            //print(dic)
                             guard let date = dic["all_day_date"] as? String else { return }
                             guard let title = dic["title"] as? String else { return }
                             guard let assignment = dic["assignment"] as? [String:Any] else{return }
@@ -188,15 +193,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                 allstring.append(tempdatestring)
                                                 for j in i.value{
                                                     self.db.collection("users").document(self.email).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
-                                                            err in
-                                                            if err != nil{
-                                                                print("there is some error")
-                                                            }else{
-                                                                print("successfully written")
-                                                            }
-                                                        }
-                                                }
-                                                self.db.collection("users").document(self.email).setData(["dates":olddate, "token":self.token, "isCanvasUser":true,"Canvasdata":oldcanvas]){
                                                         err in
                                                         if err != nil{
                                                             print("there is some error")
@@ -204,12 +200,21 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                             print("successfully written")
                                                         }
                                                     }
+                                                }
+                                                self.db.collection("users").document(self.email).setData(["dates":olddate, "token":self.token, "isCanvasUser":true,"Canvasdata":oldcanvas]){
+                                                    err in
+                                                    if err != nil{
+                                                        print("there is some error")
+                                                    }else{
+                                                        print("successfully written")
+                                                    }
+                                                }
                                                 DispatchQueue.main.async {
                                                     completionHandler("complete", nil)
                                                 }
                                                 break;
-                                                            
-                                                }
+                                                
+                                            }
                                         }
                                     }
                                 }
@@ -219,9 +224,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        
-                
     }
+    //initialze canvas fecthed event format
     func initializeCanvasevents(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
         var temp = [Date:[event]] ()
         var check:Bool = false
@@ -287,8 +291,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
     }
-
     
+    //fetch date from firestore
+    //load both Canvas data and user customized event
+    //check if there is a Canvas update: if so, compare the assignment with the stored canvas event
+    //if matched, skip, otherwise store the new event
     func getData(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
         let dname = user.id ?? email
         let userref = self.db.collection("users").document(dname)
@@ -349,15 +356,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                         allstring.append(tempdatestring)
                                         for j in i.value{
                                             self.db.collection("users").document(dname).collection(tempdatestring).document(j.title).setData(["isCanvas":j.isCanvasevent, "Subject":j.subject]){
-                                                    err in
-                                                    if err != nil{
-                                                        print("there is some error")
-                                                    }else{
-                                                        print("successfully written")
-                                                    }
-                                                }
-                                        }
-                                        self.db.collection("users").document(dname).setData(["dates":allstring, "token":self.token, "isCanvasUser":true, "Canvasdata":self.canvasdatastrings]){
                                                 err in
                                                 if err != nil{
                                                     print("there is some error")
@@ -365,27 +363,36 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                                     print("successfully written")
                                                 }
                                             }
+                                        }
+                                        self.db.collection("users").document(dname).setData(["dates":allstring, "token":self.token, "isCanvasUser":true, "Canvasdata":self.canvasdatastrings]){
+                                            err in
+                                            if err != nil{
+                                                print("there is some error")
+                                            }else{
+                                                print("successfully written")
+                                            }
+                                        }
                                         DispatchQueue.main.async {
                                             completionHandler("complete", nil)
                                         }
-                                                    
-                                        }
+                                        
                                     }
                                 }
-                                           
                             }
+                            
+                        }
                     }
                     
                 }else{
                     self.db.collection("users").document(dname).setData(["dates":[], "token":self.token, "isCanvasUser":false, "CanvasData": []]){
                         err in
-                            if err != nil{
-                                print("there is some error")
-                            }else{
-                                print("successfully written")
-                                DispatchQueue.main.async {
-                                    completionHandler("complete", nil)
-                                }
+                        if err != nil{
+                            print("there is some error")
+                        }else{
+                            print("successfully written")
+                            DispatchQueue.main.async {
+                                completionHandler("complete", nil)
+                            }
                         }
                     }
                 }
@@ -395,7 +402,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateFormatter.timeStyle = .none
+        //        dateFormatter.timeStyle = .none
         self.tableview.delegate = self
         self.tableview.dataSource = self
         refreshControl.addTarget(self, action: #selector(refreshcalender(_:)), for: .valueChanged)
@@ -410,7 +417,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                         getdataresponse, error in
                         if getdataresponse != nil{
                             self.removeSpinner()
-                             self.tableview.reloadData()
+                            self.tableview.reloadData()
                         }
                         if error != nil{
                             self.removeSpinner()
@@ -425,6 +432,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
+    //Tableview for displaying events. including swipe to delete, select to segue
+    //separated by sections of event date sorted by time
+    //each section contains the events
     func numberOfSections(in tableView: UITableView) -> Int {
         self.activities = user.user.sorted{$0.key < $1.key}
         //print(activities)
@@ -441,18 +451,18 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         self.activities = user.user.sorted{$0.key < $1.key}
-//        print(self.activities[section].value.count)
+        //        print(self.activities[section].value.count)
         return self.activities[section].value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         self.activities = user.user.sorted{$0.key < $1.key}
-//        print(activities)
+        //        print(activities)
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell") as! EventTableViewCell
         
         let title = self.activities[indexPath.section].value[indexPath.row].title
         cell.setCell(title:title)
-//        cell.textLabel?.text = "\(title)"
+        //        cell.textLabel?.text = "\(title)"
         return cell
     }
     
@@ -463,6 +473,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             return true
         }
     }
+    
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete"){(contextualAction, view, actionPerformed: @escaping (Bool) -> Void) in
@@ -481,12 +492,12 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                     }
                 }
                 var temp = self.activities[indexPath.section].value
-                 temp.remove(at: indexPath.row)
-                 if temp.count != 0{
-                     self.activities[indexPath.section].value = temp
+                temp.remove(at: indexPath.row)
+                if temp.count != 0{
+                    self.activities[indexPath.section].value = temp
                     self.user.user = self.activities
-                     self.tableview.deleteRows(at: [indexPath], with: .fade)
-                 }else{
+                    self.tableview.deleteRows(at: [indexPath], with: .fade)
+                }else{
                     let userref = self.db.collection("users").document(self.user.id ?? "")
                     var datestrings:[String] = []
                     userref.getDocument{(document, error) in
@@ -504,30 +515,30 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                                 
                             }
                             self.db.collection("users").document(self.user.id ?? "").updateData(["dates":datestrings]){
-                            err in
+                                err in
                                 if err != nil{
                                     print("there is some error")
                                 }else{
                                     print("successfully written")
                                 }
+                            }
                         }
-                    }
-                    self.activities.remove(at: indexPath.section)
+                        self.activities.remove(at: indexPath.section)
                         self.user.getdata(db: self.db, dates: datestrings as Array<AnyObject>){
                             response, error in
                             if response != nil{
                                 self.tableview.deleteSections([indexPath.section], with: .fade)
                             }
                         }
-                    //self.user.user = self.activities
-                    //self.tableview.deleteSections([indexPath.section], with: .fade)
-                    
-                     //self.tableview.reloadData()
-                 }
+                        //self.user.user = self.activities
+                        //self.tableview.deleteSections([indexPath.section], with: .fade)
+                        
+                        //self.tableview.reloadData()
+                    }
                 }
-                 
+                
                 // self.tableview.reloadData()
-                 actionPerformed(true)
+                actionPerformed(true)
             }))
             
             self.present(alert, animated: true)
@@ -536,18 +547,18 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         return UISwipeActionsConfiguration(actions: [delete])
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // self.index = indexPath.row
+        // self.index = indexPath.row
         self.selectdateindex = indexPath.section
         self.selecteventindex = indexPath.row
         self.performSegue(withIdentifier: "toEvent", sender: self)
         
         
     }
-   /* func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //for further instructions
-    }*/
-  
-
+    /* func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     //for further instructions
+     }*/
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addEventSegue"{
             let vc = segue.destination as! PopupAddEventViewController

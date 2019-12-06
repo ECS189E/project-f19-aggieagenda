@@ -37,14 +37,14 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     var canvasdataapi = Api.init()
-       var jsondata:[[String:Any]] = [["":""]]
-       var email:String = ""
+    var jsondata:[[String:Any]] = [["":""]]
+    var email:String = ""
     var password:String = ""
     var isfromcanvas:Bool =  false
     var token:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -52,23 +52,23 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func Login(_ sender: Any) {
         let token = "Bearer " + TokenLabel.text!
-     
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
-            calendarVC.token = token
-            calendarVC.isfromCanvas = true
-            calendarVC.email = email
-            self.present(calendarVC, animated: true, completion: nil)
-       
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
+        calendarVC.token = token
+        calendarVC.isfromCanvas = true
+        calendarVC.email = email
+        self.present(calendarVC, animated: true, completion: nil)
+        
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

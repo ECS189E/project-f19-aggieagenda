@@ -23,6 +23,7 @@ class EventTableViewCell: UITableViewCell {
         eventCell.layer.masksToBounds = false
         eventCell.layer.shadowRadius = 10
         eventCell.layer.shadowOffset = CGSize(width:4,height:10)
+        eventCell.layer.zPosition = 0
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,5 +32,6 @@ class EventTableViewCell: UITableViewCell {
     
     func setCell(title:String){
         EventTitle.text = title
+        EventTitle.layer.zPosition = 2
     }
 }

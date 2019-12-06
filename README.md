@@ -16,7 +16,7 @@ A calendar that will allow user to get their assignment due using UC-Davis Canva
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 # Prerequisites
-You will need the following pod to run the program
+You will need the following pod to run the program\
  pod 'Firebase/Core'\
  pod 'Firebase/Analytics'\
  pod 'Firebase/Auth'\

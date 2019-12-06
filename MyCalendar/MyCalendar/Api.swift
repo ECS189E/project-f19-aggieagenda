@@ -23,6 +23,8 @@ class Api{
         self.subject = ""
     }
     
+    
+    
     func ApiCall(token:String, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void){
     
         let headers = [
@@ -120,12 +122,6 @@ class Api{
                         DispatchQueue.main.async {
                             completionHandler("complete", nil)
                         }
-                        /*for dic in self.jsondata{
-                            guard let title = dic["title"] as? String else { return }
-                            guard let date = dic["all_day_date"] as? String else { return }
-                            print(title + " " + date) //Output
-    //                        print(date)
-                        }*/
                         }}catch{
                             print("no")
                     }
@@ -176,12 +172,6 @@ class Api{
                         DispatchQueue.main.async {
                             completionHandler("complete", nil)
                         }
-                        /*for dic in self.jsondata{
-                            guard let title = dic["title"] as? String else { return }
-                            guard let date = dic["all_day_date"] as? String else { return }
-                            print(title + " " + date) //Output
-    //                        print(date)
-                        }*/
                         }}catch{
                             print("no")
                     }

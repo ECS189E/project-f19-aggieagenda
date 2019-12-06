@@ -40,6 +40,7 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
        var jsondata:[[String:Any]] = [["":""]]
        var email:String = ""
     var password:String = ""
+    var isfromcanvas:Bool =  false
     var token:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()

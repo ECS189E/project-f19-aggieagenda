@@ -19,7 +19,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var Success: UILabel!
     var isSignIn:Bool = true
     var tapGesture = UITapGestureRecognizer()
-    
+    var isfromcanvas: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         EmailEntered.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -38,10 +38,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
         self.view.addGestureRecognizer(tapGesture)
         // Do any additional setup after loading the view.
     }
-
+    
     @objc func dismissKeyboard() {
-           view.endEditing(true)
-       }
+        view.endEditing(true)
+    }
     
     @IBAction func SignSelect(_ sender: Any) {
         isSignIn = !isSignIn
@@ -64,7 +64,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
                         calendarVC.email = email
-                       // calendarVC.isfromCanvas = false
+                        // calendarVC.isfromCanvas = false
                         self.present(calendarVC, animated: true, completion: nil)
                     }else{
                         self.Success.text = "Unmatch Email & Password"
@@ -76,20 +76,34 @@ class ViewController: UIViewController,UITextFieldDelegate {
                     }
                 })
             }else{
-               Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-                if user != nil{
-                    print("here")
+                
+                Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+                    if user != nil{
+                        print("here")
                         
                     }else{
-                        print("uh")
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let canvasVC = storyboard.instantiateViewController(identifier: "Canvas") as! CanvasViewController
-                    canvasVC.email = email
-                    self.present(canvasVC, animated: true, completion: nil)
-
+                        if let i = email.firstIndex(of: "@"){
+                            if  email[i ..< email.endIndex] == "@ucdavis.edu"{
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let canvasVC = storyboard.instantiateViewController(identifier: "Canvas") as! CanvasViewController
+                                canvasVC.email = email
+                                canvasVC.isfromcanvas = true
+                                self.present(canvasVC, animated: true, completion: nil)
+                            }else{
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
+                                calendarVC.email = email
+                                calendarVC.isfromcanvas = false
+                                self.isfromcanvas = false
+                              
+                                self.present(calendarVC, animated: true, completion: nil)
+                            }
+                        }
                     }
+                    
                 })
             }
+            
         }else{
             self.Success.text = "Enter your Email and Password"
             EmailEntered.layer.borderColor = UIColor.red.cgColor
@@ -98,7 +112,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
             PasswordEntered.layer.borderWidth = 1.0
         }
         
-       
+        
     }
 }
 

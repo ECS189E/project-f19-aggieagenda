@@ -73,6 +73,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var id:Int = 0
     var name:String = ""
     var token:String = ""
+    var isfromcanvas: Bool = false
     var activities = [(key: Date, value: [event])] ()
     var selectdateindex:Int = 0
     var selecteventindex:Int = 0

@@ -68,11 +68,11 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         calendarVC.isfromCanvas = false
                         self.present(calendarVC, animated: true, completion: nil)
                     }else{
-                        print(error)
-//                        self.EmailEntered.layer.borderColor = UIColor.red.cgColor
-//                        self.PasswordEntered.layer.borderColor = UIColor.red.cgColor
-//                        self.EmailEntered.layer.borderWidth = 1.0
-//                        self.PasswordEntered.layer.borderWidth = 1.0
+                        self.Success.text = "Unmatched email & password"
+                        self.EmailEntered.layer.borderColor = UIColor.red.cgColor
+                        self.PasswordEntered.layer.borderColor = UIColor.red.cgColor
+                        self.EmailEntered.layer.borderWidth = 1.0
+                        self.PasswordEntered.layer.borderWidth = 1.0
                         
                     }
                 })

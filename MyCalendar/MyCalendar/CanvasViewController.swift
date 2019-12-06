@@ -31,7 +31,7 @@ class CanvasViewController: UIViewController, UITableViewDataSource, UITableView
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CanvasTableViewCell
-        cell.myImage.image = UIImage(named: (steps[indexPath.row] + ".png"))
+        cell.myImage.image = UIImage(named: (steps[indexPath.row] + ".jpg"))
         cell.myLabel.text = steps[indexPath.row]
         return (cell)
     }

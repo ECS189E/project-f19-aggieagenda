@@ -15,6 +15,10 @@
 		0F880A1023866C34001D89DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F880A0F23866C34001D89DC /* Assets.xcassets */; };
 		0F880A1323866C34001D89DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F880A1123866C34001D89DC /* LaunchScreen.storyboard */; };
 		0F880A1D23867B62001D89DC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F880A1C23867B62001D89DC /* CalendarViewController.swift */; };
+		0F97CE192399DFB7000E45E8 /* step3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F97CE152399DFB7000E45E8 /* step3.jpg */; };
+		0F97CE1A2399DFB7000E45E8 /* step2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F97CE162399DFB7000E45E8 /* step2.jpg */; };
+		0F97CE1B2399DFB7000E45E8 /* step4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F97CE172399DFB7000E45E8 /* step4.jpg */; };
+		0F97CE1C2399DFB7000E45E8 /* step1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0F97CE182399DFB7000E45E8 /* step1.jpg */; };
 		0FD2C4692392675F00FD0E58 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C4682392675E00FD0E58 /* Api.swift */; };
 		0FD2C46B239273EA00FD0E58 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46A239273EA00FD0E58 /* classes.swift */; };
 		0FD2C47023951E1100FD0E58 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */; };
@@ -22,10 +26,6 @@
 		7830311572E358E86E6F90FD /* Pods_MyCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635BEE0D429FCA9AB762FCE6 /* Pods_MyCalendar.framework */; };
 		8EAD038623991A7D00DB5FFD /* CanvasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAD038423991A7D00DB5FFD /* CanvasTableViewCell.swift */; };
 		8EAD038723991A7D00DB5FFD /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAD038523991A7D00DB5FFD /* CanvasViewController.swift */; };
-		8EAD038C23991E3500DB5FFD /* step3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038823991E3400DB5FFD /* step3.png */; };
-		8EAD038D23991E3500DB5FFD /* step1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038923991E3500DB5FFD /* step1.png */; };
-		8EAD038E23991E3500DB5FFD /* step2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038A23991E3500DB5FFD /* step2.png */; };
-		8EAD038F23991E3500DB5FFD /* step4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8EAD038B23991E3500DB5FFD /* step4.png */; };
 		FA46CF9923974A6A009B89C9 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46CF9823974A6A009B89C9 /* EventViewController.swift */; };
 		FAF1A4862397EEA6009B3701 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAF1A4852397EEA5009B3701 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -40,6 +40,10 @@
 		0F880A0F23866C34001D89DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F880A1223866C34001D89DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F880A1C23867B62001D89DC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		0F97CE152399DFB7000E45E8 /* step3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = step3.jpg; sourceTree = "<group>"; };
+		0F97CE162399DFB7000E45E8 /* step2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = step2.jpg; sourceTree = "<group>"; };
+		0F97CE172399DFB7000E45E8 /* step4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = step4.jpg; sourceTree = "<group>"; };
+		0F97CE182399DFB7000E45E8 /* step1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = step1.jpg; sourceTree = "<group>"; };
 		0FD2C4682392675E00FD0E58 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		0FD2C46A239273EA00FD0E58 /* classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
 		0FD2C46F23951E1100FD0E58 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
@@ -49,10 +53,6 @@
 		635BEE0D429FCA9AB762FCE6 /* Pods_MyCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAD038423991A7D00DB5FFD /* CanvasTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasTableViewCell.swift; sourceTree = "<group>"; };
 		8EAD038523991A7D00DB5FFD /* CanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
-		8EAD038823991E3400DB5FFD /* step3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step3.png; sourceTree = "<group>"; };
-		8EAD038923991E3500DB5FFD /* step1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1.png; sourceTree = "<group>"; };
-		8EAD038A23991E3500DB5FFD /* step2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step2.png; sourceTree = "<group>"; };
-		8EAD038B23991E3500DB5FFD /* step4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step4.png; sourceTree = "<group>"; };
 		D234B614A217C10A16DAB8D2 /* Pods-MyCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendar.release.xcconfig"; path = "Target Support Files/Pods-MyCalendar/Pods-MyCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		FA46CF9823974A6A009B89C9 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		FADDEE802397F5F200F0F00D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,14 +105,14 @@
 				8EAD038423991A7D00DB5FFD /* CanvasTableViewCell.swift */,
 				8EAD038523991A7D00DB5FFD /* CanvasViewController.swift */,
 				0F2CF02523965CA400A81EFA /* EventTableViewCell.swift */,
-				0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */,
 				0FD2C472239527D100FD0E58 /* PopupAddEventViewController.swift */,
-				8EAD038923991E3500DB5FFD /* step1.png */,
-				8EAD038A23991E3500DB5FFD /* step2.png */,
-				8EAD038823991E3400DB5FFD /* step3.png */,
-				8EAD038B23991E3500DB5FFD /* step4.png */,
+				0FD2C4712395264D00FD0E58 /* PopupAddEvent.storyboard */,
 				0F880A0F23866C34001D89DC /* Assets.xcassets */,
 				FADDEE802397F5F200F0F00D /* Info.plist */,
+				0F97CE182399DFB7000E45E8 /* step1.jpg */,
+				0F97CE162399DFB7000E45E8 /* step2.jpg */,
+				0F97CE152399DFB7000E45E8 /* step3.jpg */,
+				0F97CE172399DFB7000E45E8 /* step4.jpg */,
 				FAF1A4852397EEA5009B3701 /* GoogleService-Info.plist */,
 			);
 			path = MyCalendar;
@@ -204,13 +204,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F880A1323866C34001D89DC /* LaunchScreen.storyboard in Resources */,
-				8EAD038D23991E3500DB5FFD /* step1.png in Resources */,
 				FAF1A4862397EEA6009B3701 /* GoogleService-Info.plist in Resources */,
-				8EAD038C23991E3500DB5FFD /* step3.png in Resources */,
-				8EAD038F23991E3500DB5FFD /* step4.png in Resources */,
+				0F97CE192399DFB7000E45E8 /* step3.jpg in Resources */,
 				0F880A1023866C34001D89DC /* Assets.xcassets in Resources */,
-				8EAD038E23991E3500DB5FFD /* step2.png in Resources */,
+				0F97CE1A2399DFB7000E45E8 /* step2.jpg in Resources */,
+				0F97CE1C2399DFB7000E45E8 /* step1.jpg in Resources */,
 				0F880A0E23866C30001D89DC /* Main.storyboard in Resources */,
+				0F97CE1B2399DFB7000E45E8 /* step4.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

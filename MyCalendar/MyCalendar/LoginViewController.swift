@@ -18,12 +18,31 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var Success: UILabel!
     var isSignIn:Bool = true
+    var tapGesture = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        EmailEntered.layer.shadowOffset = CGSize(width: 3, height: 3)
+        EmailEntered.layer.shadowOpacity = 0.25
+        EmailEntered.layer.shadowColor = UIColor.yellow.cgColor
+        EmailEntered.layer.masksToBounds = false
+        EmailEntered.layer.shadowRadius = 10
+        
+        PasswordEntered.layer.shadowOffset = CGSize(width: 3, height: 3)
+        PasswordEntered.layer.shadowOpacity = 0.25
+        PasswordEntered.layer.shadowColor = UIColor.yellow.cgColor
+        PasswordEntered.layer.masksToBounds = false
+        PasswordEntered.layer.shadowRadius = 10
+        
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
         // Do any additional setup after loading the view.
     }
 
+    @objc func dismissKeyboard() {
+           view.endEditing(true)
+       }
+    
     @IBAction func SignSelect(_ sender: Any) {
         isSignIn = !isSignIn
         
@@ -36,10 +55,12 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func ButtonPress(_ sender: Any) {
         
+        
         if let email = EmailEntered.text, let password = PasswordEntered.text{
             if isSignIn {
                 Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
                     if error == nil{
+                        self.Success.text = ""
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
                         calendarVC.email = email
@@ -47,6 +68,11 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         self.present(calendarVC, animated: true, completion: nil)
                     }else{
                         self.Success.text = "Unmatch Email & Password"
+                        self.EmailEntered.layer.borderColor = UIColor.red.cgColor
+                        self.PasswordEntered.layer.borderColor = UIColor.red.cgColor
+                        self.EmailEntered.layer.borderWidth = 1.0
+                        self.PasswordEntered.layer.borderWidth = 1.0
+                        
                     }
                 })
             }else{
@@ -66,6 +92,10 @@ class ViewController: UIViewController,UITextFieldDelegate {
             }
         }else{
             self.Success.text = "Enter your Email and Password"
+            EmailEntered.layer.borderColor = UIColor.red.cgColor
+            PasswordEntered.layer.borderColor = UIColor.red.cgColor
+            EmailEntered.layer.borderWidth = 1.0
+            PasswordEntered.layer.borderWidth = 1.0
         }
         
        

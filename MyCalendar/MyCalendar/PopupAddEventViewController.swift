@@ -121,33 +121,38 @@ class PopupAddEventViewController: UIViewController {
     }
     
     @IBAction func addEvent(_ sender: UIButton) {
-        if let doneSaving = doneSaving {
-            doneSaving()
-            self.addData(){response, error in
-                if response != nil{
-                    guard let db = self.db else{
-                        return
-                    }
-                    guard let newuser = self.user else{
-                        return
-                    }
-                    newuser.getdata(db: db, dates: self.datestrings as Array<AnyObject>){
-                        response, error in
-                        if response != nil{
-                            self.mDelegate?.senduserdataToPreviousVC(newuser:newuser){
-                                response, error in
-                                if response != nil{
-                                    self.dismiss(animated:true)
-                                }
-                            }
-                            
+        if EventTitle.text == ""{
+            EventTitle.layer.borderColor = UIColor.red.cgColor
+            EventTitle.layer.borderWidth = 1.0
+            return
+        } else {
+            if let doneSaving = doneSaving {
+                doneSaving()
+                self.addData(){response, error in
+                    if response != nil{
+                        guard let db = self.db else{
+                            return
                         }
+                        guard let newuser = self.user else{
+                            return
+                        }
+                        newuser.getdata(db: db, dates: self.datestrings as Array<AnyObject>){
+                            response, error in
+                            if response != nil{
+                                self.mDelegate?.senduserdataToPreviousVC(newuser:newuser){
+                                    response, error in
+                                    if response != nil{
+                                        self.dismiss(animated:true)
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
                     }
-                    
                 }
             }
         }
-        
     }
     
    

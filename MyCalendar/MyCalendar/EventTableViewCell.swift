@@ -10,11 +10,9 @@ import UIKit
 
 class EventTableViewCell: UITableViewCell {
     
-
-    
     @IBOutlet weak var eventCell: UIView!
-    
     @IBOutlet weak var EventTitle: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         eventCell.backgroundColor = UIColor(red: 26/255, green: 173/255, blue: 136/255, alpha: 1)
@@ -25,14 +23,10 @@ class EventTableViewCell: UITableViewCell {
         eventCell.layer.masksToBounds = false
         eventCell.layer.shadowRadius = 10
         eventCell.layer.shadowOffset = CGSize(width:4,height:10)
-        // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-
-        // Configure the view for the selected state
     }
     
     func setCell(title:String){

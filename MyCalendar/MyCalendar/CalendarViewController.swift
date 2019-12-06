@@ -93,7 +93,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc private func refreshcalender(_ sender: Any){
         getData(){response, error in
             if response != nil{
-                //self.tableview.reloadData()
+                
                 self.refreshControl.endRefreshing()
                 self.activityIndicatorView.stopAnimating()
                 self.tableview.reloadData()
@@ -576,5 +576,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             VC.oneevent = activities[selectdateindex].value[selecteventindex]
             VC.email = user.id
         }
+    }
+    @IBAction func backTOHome(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(identifier: "LoginViewController") as! ViewController
+        self.present(loginVC, animated: true, completion: nil)
     }
 }

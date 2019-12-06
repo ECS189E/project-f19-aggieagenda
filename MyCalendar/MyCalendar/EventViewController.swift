@@ -9,26 +9,16 @@
 import UIKit
 import Firebase
 
-//protocol MyProtocol: class
-//{
-//    func senduserdataToPreviousVC(newuser:User, completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void)
-//}
-
-
 class EventViewController: UIViewController {
     
     @IBOutlet weak var TimerView: UIView!
     @IBOutlet weak var EventTitle: UILabel!
     @IBOutlet weak var EventDate: UILabel!
     @IBOutlet weak var EventSubject: UILabel!
-    
     @IBOutlet weak var HrInput: UITextField!
     @IBOutlet weak var MinInput: UITextField!
     @IBOutlet weak var SecInput: UITextField!
-    
-    
     @IBOutlet weak var CountDownTimer: UILabel!
-    
     @IBOutlet weak var StartButton: UIButton!
     @IBOutlet weak var StopButton: UIButton!
     
@@ -46,7 +36,7 @@ class EventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         TimerView.layer.shadowOffset = CGSize(width: 3, height: 3)
         TimerView.layer.shadowOpacity = 0.25
         TimerView.layer.cornerRadius = 20
@@ -82,8 +72,6 @@ class EventViewController: UIViewController {
             isTimerRunning = true
             self.StopButton.isEnabled = true
         }
-       
-//        self.StartButton.isEnabled = true
     }
     
     @objc func updateTimer(){
@@ -94,9 +82,6 @@ class EventViewController: UIViewController {
             seconds -= 1
             CountDownTimer.text = timeString(time: TimeInterval(seconds))
         }
-//        if seconds == 0{
-//            self.StartButton.isEnabled = true
-//        }
     }
     
     func timeString(time:TimeInterval) -> String {
@@ -106,7 +91,6 @@ class EventViewController: UIViewController {
         return String(format: "%02i:%02i:%02i", Hours, Minutes, Seconds)
     }
     
- 
     @IBAction func StartButtonTapped(_ sender: Any) {
         if isTimerRunning == false {
             let hr:Int = Int(HrInput.text ?? "0") ?? 0
@@ -117,11 +101,9 @@ class EventViewController: UIViewController {
             chosenTimeInterval = sec + 60 * min + 3600 * hr
             seconds = chosenTimeInterval
             runTimer()
-             CountDownTimer.text = timeString(time: Double(chosenTimeInterval))
+            CountDownTimer.text = timeString(time: Double(chosenTimeInterval))
             print("here")
-//            self.StartButton.isEnabled = false
-        }else{
-            
+        }else{            
         }
     }
     
@@ -135,18 +117,9 @@ class EventViewController: UIViewController {
         }
     }
     
-    //More adjustmet is needed to deal with the reset button. We will need to do this!!
-    
-//    @IBAction func ResetButtonTapped(_ sender: UIButton) {
-//        timer.invalidate()
-//        seconds = chosenTimeInterval
-//        CountDownTimer.text = timeString(time: TimeInterval(seconds))
-//        isTimerRunning = false
-//        self.StopButton.isEnabled = false
-//    }
     @IBAction func backPressed(_ sender: UIButton) {
-           dismiss(animated: true)
-       }
+        dismiss(animated: true)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "backToEvent"{
             let vc = segue.destination as! CalendarViewController

@@ -14,7 +14,7 @@ protocol MyProtocol: class
 }
 
 class PopupAddEventViewController: UIViewController {
-
+    
     
     @IBOutlet weak var AddView: UIView!
     @IBOutlet weak var EventTitle: UITextField!
@@ -30,13 +30,13 @@ class PopupAddEventViewController: UIViewController {
     var datestrings:[String] = []
     var tempactivities = [(key: Date, value: [event])] ()
     weak var mDelegate:MyProtocol?
-    //var email:String? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AddView.layer.cornerRadius = 10
         let currentDate = Date()
         datePicker.minimumDate = currentDate
-     
+        
         let userref = self.db?.collection("users").document(user?.id ?? "")
         userref?.getDocument{(document, error) in
             if let document = document, document.exists{
@@ -51,9 +51,9 @@ class PopupAddEventViewController: UIViewController {
                 }
             }
         }
-        // Do any additional setup after loading the view.
     }
     
+    //add existing data from firebase
     func addData(completionHandler: @escaping (_ Response: String?, _ Error: String?)->Void) {
         var check:Bool = false
         var tempevents:[event] = []
@@ -68,19 +68,14 @@ class PopupAddEventViewController: UIViewController {
         for data in activities{
             let newdateString = dateFormatter.string(from: data.key)
             if newdateString == dateString{
-               /* tempevents = data.value
-                let tempevent = event.init(title, dateString, false)
-                tempevents.append(tempevent)
-                activities[index].value = tempevents*/
                 self.db?.collection("users").document(user?.id ?? "").collection(dateString).document(title).setData(["isCanvas":false]){
                     err in
-                        if err != nil{
-                            print("there is some error")
-                        }else{
-                            print("successfully written")
+                    if err != nil{
+                        print("there is some error")
+                    }else{
+                        print("successfully written")
                     }
                 }
-                //User.user.updateValue(tempevents, forKey: date)
                 check = true
             }
         }
@@ -90,36 +85,31 @@ class PopupAddEventViewController: UIViewController {
             datestrings.append(dateString)
             self.db?.collection("users").document(self.user?.id ?? "").updateData(["dates":datestrings]){
                 err in
+                if err != nil{
+                    print("there is some error")
+                }else{
+                    print("successfully written")
+                }
+                self.db?.collection("users").document(self.user?.id ?? "").collection(dateString).document(title).setData(["isCanvas":false, "Subject":""]){
+                    err in
                     if err != nil{
                         print("there is some error")
                     }else{
                         print("successfully written")
                     }
-                self.db?.collection("users").document(self.user?.id ?? "").collection(dateString).document(title).setData(["isCanvas":false, "Subject":""]){
-                        err in
-                            if err != nil{
-                                print("there is some error")
-                            }else{
-                                print("successfully written")
-                            }
-                        DispatchQueue.main.async{
-                            completionHandler("response", nil)
-                        }
+                    DispatchQueue.main.async{
+                        completionHandler("response", nil)
                     }
-                        
                 }
-                
-            //activities.append((key: date, value: tempevents))
-           // User.user.updateValue(tempevents, forKey: date)
+            }
         }else{
             DispatchQueue.main.async{
                 completionHandler("response", nil)
             }
         }
-        //need fixing!
-      //  user.user = activities
     }
     
+    //Enable user to add the event by themself
     @IBAction func addEvent(_ sender: UIButton) {
         if EventTitle.text == ""{
             EventTitle.layer.borderColor = UIColor.red.cgColor
@@ -155,9 +145,7 @@ class PopupAddEventViewController: UIViewController {
         }
     }
     
-   
     @IBAction func cancelEvent(_ sender: UIButton) {
         dismiss(animated: true)
     }
-    
 }

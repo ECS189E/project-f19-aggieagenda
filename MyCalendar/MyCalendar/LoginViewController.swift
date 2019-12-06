@@ -15,11 +15,12 @@ class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var EmailEntered: UITextField!
     @IBOutlet weak var PasswordEntered: UITextField!
     @IBOutlet weak var SignButton: UIButton!
-    
     @IBOutlet weak var Success: UILabel!
+    
     var isSignIn:Bool = true
     var tapGesture = UITapGestureRecognizer()
     var isfromcanvas: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         EmailEntered.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -43,6 +44,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         view.endEditing(true)
     }
     
+    //to check if user need to register or sign in
     @IBAction func SignSelect(_ sender: Any) {
         isSignIn = !isSignIn
         
@@ -53,9 +55,8 @@ class ViewController: UIViewController,UITextFieldDelegate {
         }
     }
     
+    //api call for user login and sign in, to navigate to different controller depending on the email
     @IBAction func ButtonPress(_ sender: Any) {
-        
-        
         if let email = EmailEntered.text, let password = PasswordEntered.text{
             if isSignIn {
                 Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
@@ -64,14 +65,14 @@ class ViewController: UIViewController,UITextFieldDelegate {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let calendarVC = storyboard.instantiateViewController(identifier: "CalendarViewController") as! CalendarViewController
                         calendarVC.email = email
-                        // calendarVC.isfromCanvas = false
+                        calendarVC.isfromCanvas = false
                         self.present(calendarVC, animated: true, completion: nil)
                     }else{
-                        self.Success.text = "Unmatch Email & Password"
-                        self.EmailEntered.layer.borderColor = UIColor.red.cgColor
-                        self.PasswordEntered.layer.borderColor = UIColor.red.cgColor
-                        self.EmailEntered.layer.borderWidth = 1.0
-                        self.PasswordEntered.layer.borderWidth = 1.0
+                        print(error)
+//                        self.EmailEntered.layer.borderColor = UIColor.red.cgColor
+//                        self.PasswordEntered.layer.borderColor = UIColor.red.cgColor
+//                        self.EmailEntered.layer.borderWidth = 1.0
+//                        self.PasswordEntered.layer.borderWidth = 1.0
                         
                     }
                 })
@@ -80,7 +81,6 @@ class ViewController: UIViewController,UITextFieldDelegate {
                 Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
                     if user != nil{
                         print("here")
-                        
                     }else{
                         print("now here")
                         if let i = email.firstIndex(of: "@"){
@@ -98,15 +98,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
                                 calendarVC.email = email
                                 calendarVC.isfromcanvas = false
                                 self.isfromcanvas = false
-                              
+                                
                                 self.present(calendarVC, animated: true, completion: nil)
                             }
                         }
                     }
-                    
                 })
             }
-            
         }else{
             self.Success.text = "Enter your Email and Password"
             EmailEntered.layer.borderColor = UIColor.red.cgColor
@@ -114,8 +112,6 @@ class ViewController: UIViewController,UITextFieldDelegate {
             EmailEntered.layer.borderWidth = 1.0
             PasswordEntered.layer.borderWidth = 1.0
         }
-        
-        
     }
 }
 

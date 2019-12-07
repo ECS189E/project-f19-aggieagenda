@@ -30,9 +30,12 @@ class PopupAddEventViewController: UIViewController {
     var datestrings:[String] = []
     var tempactivities = [(key: Date, value: [event])] ()
     weak var mDelegate:MyProtocol?
+    var tapGesture = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
         AddView.layer.cornerRadius = 10
         let currentDate = Date()
         datePicker.minimumDate = currentDate
@@ -51,6 +54,10 @@ class PopupAddEventViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     //add existing data from firebase
